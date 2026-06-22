@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FRS Autocar – Rental & Layanan Kendaraan, Subang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#C41C22;--red-dark:#9A141A;
+  --black:#F4F4F4;--dark:#EAEAEA;--card:#FFFFFF;
+  --border:rgba(0,0,0,0.09);--border2:rgba(0,0,0,0.15);
+  --text:#111111;--muted:rgba(0,0,0,0.42);--muted2:rgba(0,0,0,0.68);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden;padding-bottom:64px;}
+
+/* ── TOP NAV ── */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:12px 20px;}
+.nav-brand{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#111;letter-spacing:1px;}
+.nav-brand span{color:var(--red);}
+.nav-trust{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-style:italic;color:rgba(0,0,0,0.42);letter-spacing:0.2px;line-height:1;}
+.nav-trust b{color:var(--red);font-weight:800;font-style:normal;}
+.nav-wa{background:var(--red);color:white;padding:9px 16px;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:6px;transition:background 0.2s;}
+.nav-wa:hover{background:var(--red-dark);}
+
+/* ── HERO ── */
+#hero{background:#fff;display:flex;flex-direction:column;justify-content:flex-start;padding:59px 20px 20px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 80% 30%,rgba(220,31,38,0.07),transparent 60%),#fff;}
+.hero-line{position:absolute;top:0;right:0;width:55%;height:100%;background:linear-gradient(180deg,transparent,rgba(220,31,38,0.04) 50%,transparent);clip-path:polygon(18% 0,100% 0,100% 100%,0% 100%);}
+/* ── PREMIUM ANIMATIONS ── */
+@keyframes titleWipe{0%{opacity:0;clip-path:inset(0 100% 0 0);}55%{opacity:1;}100%{clip-path:inset(0 0% 0 0);}}
+@keyframes revealFade{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes metalShimmer{0%{background-position:-300% center;}100%{background-position:300% center;}}
+@keyframes tabRing{0%,100%{box-shadow:0 0 0 0 rgba(220,31,38,0.5);}65%{box-shadow:0 0 0 10px rgba(220,31,38,0);}}
+@keyframes bnavGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(220,31,38,0.7));}50%{filter:drop-shadow(0 0 10px rgba(220,31,38,0.9));}}
+@keyframes heroLinePulse{0%,100%{opacity:0.04;}50%{opacity:0.12;}}
+
+.hero-title{position:relative;font-family:'Barlow Condensed',sans-serif;font-size:clamp(52px,13vw,88px);font-weight:900;font-style:italic;line-height:1;text-transform:uppercase;color:#0C0C0C;margin-bottom:6px;letter-spacing:1px;white-space:nowrap;display:flex;align-items:center;gap:2px;animation:titleWipe 0.95s cubic-bezier(0.16,1,0.3,1) 0.05s both;}
+.hero-logo-img{height:2.2em;width:auto;object-fit:contain;display:block;flex-shrink:0;}
+.hero-title .red{background:linear-gradient(90deg,#5A0000 0%,#C41C22 25%,#E85530 50%,#C41C22 75%,#5A0000 100%);background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:metalShimmer 3s linear 1s infinite;}
+.hero-tagline{position:relative;font-family:'Barlow Condensed',sans-serif;font-size:clamp(12px,2.8vw,15px);font-style:italic;color:rgba(0,0,0,0.45);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;animation:revealFade 0.6s cubic-bezier(0.22,1,0.36,1) 0.38s both;}
+.hero-ctas{position:relative;display:flex;gap:10px;flex-wrap:wrap;animation:revealFade 0.6s cubic-bezier(0.22,1,0.36,1) 0.54s both;}
+/* tab ring pulse on active */
+.svc-tab.active .tab-circle{animation:tabRing 2.2s ease-in-out infinite;}
+/* bottom nav active glow */
+.bnav-item.active .bnav-ic{animation:bnavGlow 2s ease-in-out infinite;}
+/* hero line subtle pulse */
+.hero-line{animation:heroLinePulse 4s ease-in-out infinite;}
+/* card hover glow */
+.unit-card:hover{border-color:rgba(220,31,38,0.5);transform:translateY(-3px);box-shadow:0 0 0 1.5px rgba(220,31,38,0.18),0 8px 28px rgba(220,31,38,0.13);}
+/* svc card hover */
+.svc-card{transition:box-shadow 0.2s,transform 0.2s;border-left:3px solid transparent;}
+.svc-card:hover{box-shadow:0 4px 16px rgba(220,31,38,0.08);transform:translateX(2px);border-left-color:var(--red);}
+/* iPhone icon */
+.svc-ico img{width:100%;height:100%;object-fit:contain;border-radius:4px;}
+.btn-red{background:var(--red);color:white;border:none;padding:14px 28px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:0.5px;border-radius:6px;cursor:pointer;text-decoration:none;display:inline-block;transition:background 0.2s,transform 0.15s;}
+.btn-red:hover{background:var(--red-dark);transform:translateY(-1px);}
+.btn-outline{background:transparent;color:#111;border:1.5px solid rgba(0,0,0,0.22);padding:14px 28px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:0.5px;border-radius:6px;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.2s;}
+.btn-outline:hover{border-color:var(--red);color:var(--red);}
+
+/* ── LAYANAN TABS ── */
+.red-banner{background:var(--red);padding:14px 20px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.red-banner::before,.red-banner::after{content:'';position:absolute;top:50%;width:36px;height:2px;background:rgba(255,255,255,0.5);transform:translateY(-50%);}
+.red-banner::before{left:16px;}.red-banner::after{right:16px;}
+.red-banner-text{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:900;color:white;letter-spacing:4px;text-transform:uppercase;}
+#layanan{background:var(--dark);}
+.svc-header{background:var(--dark);}
+.svc-floater{background:#fff;border-radius:16px;margin:10px 12px 12px;box-shadow:0 2px 20px rgba(0,0,0,0.10);padding:16px 12px 16px;}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+@media(max-width:380px){.svc-grid{grid-template-columns:repeat(3,1fr);}}
+.svc-tab{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;padding:10px 4px;border-radius:10px;transition:background 0.15s;border:1.5px solid transparent;}
+.svc-tab:hover{background:rgba(220,31,38,0.05);}
+.svc-tab.active{background:rgba(220,31,38,0.08);border-color:rgba(220,31,38,0.25);}
+.svc-tab.active .tab-circle{background:var(--red);border-color:var(--red);}
+.tab-circle{width:50px;height:50px;border-radius:50%;background:rgba(220,31,38,0.06);border:2px solid rgba(220,31,38,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;transition:all 0.2s;flex-shrink:0;}
+.tab-label{font-size:9.5px;font-weight:600;color:rgba(0,0,0,0.55);text-align:center;line-height:1.25;}
+.svc-tab.active .tab-label{color:var(--red);font-weight:700;}
+
+/* ── PANELS ── */
+#panels{background:var(--dark);}
+.panel-wrap{display:none;padding:20px 16px 32px;}
+.panel-wrap.active{display:block;}
+.panel-title{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-transform:uppercase;color:#0C0C0C;margin-bottom:4px;padding-left:14px;border-left:4px solid var(--red);}
+.panel-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+
+/* Category filter */
+.cat-filter{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:16px;}
+.cat-filter::-webkit-scrollbar{display:none;}
+.cat-btn{background:rgba(0,0,0,0.04);border:1.5px solid rgba(0,0,0,0.12);color:rgba(0,0,0,0.54);padding:7px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.2s;}
+.cat-btn:hover,.cat-btn.active{border-color:var(--red);color:var(--red);background:rgba(220,31,38,0.06);}
+
+/* Unit cards */
+.unit-grid{display:grid;gap:10px;grid-template-columns:1fr 1fr;}
+.unit-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.2s,transform 0.15s,box-shadow 0.15s;cursor:pointer;}
+.unit-card:hover{border-color:rgba(220,31,38,0.3);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.1);}
+.unit-card:active{transform:scale(0.97);}
+.unit-card.hidden,.unit-card.hidden-more{display:none;}
+.unit-thumb{height:120px;position:relative;overflow:hidden;background:#e8e8e8;}
+.unit-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s;}
+.unit-card:hover .unit-thumb img{transform:scale(1.04);}
+.status-pill{position:absolute;top:6px;right:6px;font-size:9px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:2px 7px;border-radius:4px;font-family:'Barlow Condensed',sans-serif;}
+.status-pill.available{background:rgba(22,163,74,0.10);color:#15803d;border:1px solid rgba(22,163,74,0.2);}
+.status-pill.booked{background:rgba(100,116,139,0.10);color:#475569;border:1px solid rgba(71,85,105,0.2);}
+.cat-badge{position:absolute;top:6px;left:6px;font-size:8px;font-weight:700;text-transform:uppercase;padding:2px 6px;border-radius:3px;background:rgba(220,31,38,0.8);color:white;font-family:'Barlow Condensed',sans-serif;}
+.unit-body{padding:10px;}
+.unit-name{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:900;text-transform:uppercase;color:#0C0C0C;margin-bottom:1px;}
+.unit-type{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;}
+.unit-price-row{display:flex;align-items:baseline;gap:4px;margin-bottom:1px;}
+.unit-price{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;color:var(--red);}
+.unit-price-note{font-size:10px;color:var(--muted);}
+.unit-deposit{font-size:9px;color:var(--muted);background:rgba(0,0,0,0.03);border-radius:5px;padding:4px 6px;margin-top:6px;display:flex;align-items:center;gap:4px;}
+.show-more-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:12px;padding:11px;background:transparent;border:1.5px solid rgba(0,0,0,0.15);border-radius:10px;color:rgba(0,0,0,0.54);font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.show-more-btn:hover{border-color:var(--red);color:var(--red);}
+
+/* Service list (iPhone, GPS, dll) */
+.svc-list{display:grid;gap:10px;}
+.svc-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;gap:12px;align-items:flex-start;}
+.svc-ico{width:40px;height:40px;border-radius:10px;background:rgba(220,31,38,0.08);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.svc-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;text-transform:uppercase;color:#111;margin-bottom:2px;}
+.svc-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+.svc-price{font-size:12px;font-weight:700;color:var(--red);margin-top:3px;}
+
+/* Jual Beli */
+.jb-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:10px;}
+.jb-head{padding:14px;display:flex;align-items:center;gap:12px;}
+.jb-head-icon{font-size:28px;}
+.jb-head-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;text-transform:uppercase;color:white;}
+.jb-head-sub{font-size:11px;color:rgba(255,255,255,0.75);text-transform:uppercase;letter-spacing:0.5px;}
+.jb-body{padding:14px;}
+.jb-feats{list-style:none;}
+.jb-feats li{font-size:12px;color:var(--muted2);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:flex-start;}
+.jb-feats li:last-child{border:none;}
+.jb-feats li::before{content:"✓";color:var(--red);font-weight:700;font-size:12px;flex-shrink:0;}
+
+/* Pesan button in panels */
+.btn-pesan{width:100%;margin-top:16px;background:var(--red);color:white;border:none;padding:15px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.2s,transform 0.15s;}
+.btn-pesan:hover{background:var(--red-dark);transform:translateY(-1px);}
+.btn-pesan:active{transform:scale(0.98);}
+
+/* ── BOTTOM SHEET ── */
+.sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.sheet-overlay.show{opacity:1;pointer-events:all;}
+.sheet{position:fixed;bottom:0;left:0;right:0;z-index:600;background:#fff;border-radius:20px 20px 0 0;transform:translateY(100%);transition:transform 0.38s cubic-bezier(0.32,0.72,0,1);max-height:90vh;display:flex;flex-direction:column;}
+.sheet.show{transform:translateY(0);}
+.sheet-handle{width:36px;height:4px;background:rgba(0,0,0,0.15);border-radius:2px;margin:12px auto 0;flex-shrink:0;}
+.sheet-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px 14px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.sheet-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;text-transform:uppercase;color:#111;}
+.sheet-close{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;padding:2px 6px;line-height:1;border-radius:6px;transition:color 0.15s;}
+.sheet-close:hover{color:#111;}
+.sheet-body{overflow-y:auto;padding:20px;flex:1;-webkit-overflow-scrolling:touch;}
+.booking-form{display:none;}
+
+/* Forms inside sheet */
+.booking-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;text-transform:uppercase;color:#111;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.booking-title::before{content:'';width:4px;height:18px;background:var(--red);border-radius:2px;display:block;}
+.form-grid{display:grid;gap:12px;}
+@media(min-width:520px){.form-grid{grid-template-columns:1fr 1fr;}}
+.form-full{grid-column:1/-1;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-group label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);}
+.form-group input,.form-group select,.form-group textarea{background:rgba(0,0,0,0.04);border:1.5px solid rgba(0,0,0,0.12);color:#111;padding:11px 14px;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;-webkit-appearance:none;appearance:none;}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(0,0,0,0.28);}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(220,31,38,0.5);background:rgba(220,31,38,0.02);}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+.upload-label-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:8px;}
+.upload-notice{background:rgba(220,31,38,0.06);border:1px solid rgba(220,31,38,0.18);border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:12px;color:rgba(180,20,20,0.9);line-height:1.5;}
+.upload-grid{display:grid;gap:8px;}
+.upload-zone{background:rgba(0,0,0,0.03);border:1.5px dashed rgba(0,0,0,0.15);border-radius:8px;padding:12px;cursor:pointer;transition:border-color 0.2s,background 0.2s;display:flex;align-items:center;gap:10px;}
+.upload-zone:hover{border-color:rgba(220,31,38,0.35);background:rgba(220,31,38,0.03);}
+.upload-zone.uploaded{border-color:rgba(22,163,74,0.35);background:rgba(22,163,74,0.04);}
+.upload-icon{font-size:20px;flex-shrink:0;}
+.upload-text{flex:1;}
+.upload-text b{display:block;font-size:13px;color:rgba(0,0,0,0.7);}
+.upload-text small{font-size:11px;color:var(--muted);}
+.upload-status{font-size:11px;color:#16a34a;margin-top:2px;display:none;}
+.upload-zone.uploaded .upload-status{display:block;}
+.upload-input{display:none;}
+.pay-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.pay-btn{background:rgba(0,0,0,0.04);border:1.5px solid rgba(0,0,0,0.12);color:rgba(0,0,0,0.54);padding:8px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;}
+.pay-btn:hover,.pay-btn.sel{border-color:var(--red);color:var(--red);background:rgba(220,31,38,0.06);}
+.submit-btn{width:100%;background:var(--red);color:white;border:none;padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;border-radius:8px;cursor:pointer;transition:background 0.2s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.submit-btn:hover{background:var(--red-dark);}
+
+/* S&K sheet */
+.sk-accordion{display:grid;gap:8px;}
+.sk-item{background:rgba(0,0,0,0.03);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.sk-head{padding:14px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;transition:background 0.2s;}
+.sk-head:hover{background:rgba(0,0,0,0.03);}
+.sk-head-title{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;text-transform:uppercase;color:#111;display:flex;align-items:center;gap:8px;}
+.sk-arrow{color:var(--muted);font-size:13px;transition:transform 0.3s;flex-shrink:0;}
+.sk-item.open .sk-arrow{transform:rotate(180deg);}
+.sk-item.open .sk-head{background:rgba(220,31,38,0.04);}
+.sk-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+.sk-item.open .sk-body{max-height:600px;}
+.sk-content{padding:0 14px 14px;}
+.sk-list{list-style:none;display:grid;gap:7px;}
+.sk-list li{font-size:12.5px;color:var(--muted2);padding:9px 11px;background:rgba(0,0,0,0.025);border-radius:7px;display:flex;gap:9px;align-items:flex-start;line-height:1.5;}
+.sk-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:5px;}
+.sk-list li b{color:#0C0C0C;}
+.sk-warn{background:rgba(220,31,38,0.06);border:1px solid rgba(220,31,38,0.2);border-radius:8px;padding:10px 12px;font-size:12px;color:rgba(180,20,20,0.9);line-height:1.6;margin-top:8px;}
+
+/* Rekening sheet */
+.rek-card{background:rgba(0,0,0,0.02);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden;}
+.rek-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#0066AE;}
+.rek-bank-logo{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;letter-spacing:1px;color:#4da6e8;margin-bottom:4px;}
+.rek-bank-type{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;}
+.rek-number{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;color:#111;letter-spacing:2px;margin-bottom:6px;}
+.rek-name{font-size:13px;color:var(--muted2);font-weight:600;text-transform:uppercase;margin-bottom:14px;}
+.copy-btn{background:rgba(0,0,0,0.05);border:1px solid var(--border);color:var(--muted2);padding:10px 16px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;width:100%;font-family:'Inter',sans-serif;}
+.copy-btn:hover{border-color:var(--border2);color:#111;}
+.copy-btn.copied{border-color:rgba(22,163,74,0.4);color:#16a34a;background:rgba(22,163,74,0.05);}
+.rek-note{font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;background:rgba(0,0,0,0.03);border-radius:8px;padding:12px;border-left:3px solid var(--red);}
+
+/* Kontak sheet */
+.info-row{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted2);margin-bottom:12px;}
+.info-ic{width:36px;height:36px;background:rgba(0,0,0,0.06);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:400;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-top:1px solid var(--border);display:flex;align-items:stretch;}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 2px 10px;background:none;border:none;cursor:pointer;text-decoration:none;color:var(--muted);transition:color 0.15s;-webkit-tap-highlight-color:transparent;font-family:'Inter',sans-serif;}
+.bnav-item:hover,.bnav-item.active{color:var(--red);}
+.bnav-ic{font-size:20px;line-height:1;}
+.bnav-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:76px;right:18px;z-index:700;background:#fff;border:1px solid var(--border2);color:var(--muted2);padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600;transform:translateY(12px);opacity:0;transition:all 0.3s;pointer-events:none;max-width:260px;box-shadow:0 4px 16px rgba(0,0,0,0.12);}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.error{border-color:rgba(220,31,38,0.4);color:#dc2626;}
+.toast.success{border-color:rgba(22,163,74,0.4);color:#16a34a;}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <span class="nav-trust"><b>"We Trust</b> FRS Autocar"</span>
+  <a href="https://wa.me/6281320059540" class="nav-wa" target="_blank">💬 Chat Admin</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <h1 class="hero-title"><img src="logo.png" alt="FRS" class="hero-logo-img"><span class="red">AUTO</span>CAR</h1>
+  <p class="hero-tagline">Sewa · Servis · GPS · Inspeksi · Jual Beli</p>
+
+  <div class="hero-ctas">
+    <a href="#layanan" class="btn-red">Lihat Layanan</a>
+    <a href="https://wa.me/6281320059540" class="btn-outline" target="_blank">💬 Chat Admin</a>
+  </div>
+</section>
+
+<!-- LAYANAN TABS -->
+<div id="layanan">
+  <div class="svc-header">
+    <div class="red-banner"><span class="red-banner-text">Layanan Kami</span></div>
+  </div>
+  <div class="svc-floater">
+    <div class="svc-grid">
+      <div class="svc-tab active" onclick="pilih('mobil',this)"><div class="tab-circle">🚗</div><div class="tab-label">Sewa Mobil</div></div>
+      <div class="svc-tab" onclick="pilih('motor',this)"><div class="tab-circle">🛵</div><div class="tab-label">Sewa Motor</div></div>
+      <div class="svc-tab" onclick="pilih('iphone',this)"><div class="tab-circle">📱</div><div class="tab-label">Sewa iPhone</div></div>
+      <div class="svc-tab" onclick="pilih('service',this)"><div class="tab-circle">🔧</div><div class="tab-label">Service Mobil &amp; Motor</div></div>
+      <div class="svc-tab" onclick="pilih('gps',this)"><div class="tab-circle">📡</div><div class="tab-label">Pasang GPS</div></div>
+      <div class="svc-tab" onclick="pilih('inspeksi',this)"><div class="tab-circle">🔍</div><div class="tab-label">Inspeksi Mobil</div></div>
+      <div class="svc-tab" onclick="pilih('jualbeli',this)"><div class="tab-circle">🤝</div><div class="tab-label">Jual Beli Mobil</div></div>
+      <div class="svc-tab" onclick="pilih('hiace',this)"><div class="tab-circle">🚐</div><div class="tab-label">Hiace &amp; Elf</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PANELS -->
+<div id="panels" style="background:var(--dark);">
+
+<!-- PANEL: SEWA MOBIL -->
+<div class="panel-wrap active" id="panel-mobil">
+  <div class="panel-title">🚗 Sewa Mobil</div>
+  <div class="panel-sub">Lepas kunci atau dengan sopir. Siap antar ke lokasi Anda.</div>
+  <div class="cat-filter" id="cat-mobil">
+    <div class="cat-btn active" onclick="filterCat('mobil','semua',this)">Semua</div>
+    <div class="cat-btn" onclick="filterCat('mobil','city',this)">City Car</div>
+    <div class="cat-btn" onclick="filterCat('mobil','hatchback',this)">Hatchback</div>
+    <div class="cat-btn" onclick="filterCat('mobil','mpv',this)">MPV</div>
+    <div class="cat-btn" onclick="filterCat('mobil','suv',this)">SUV</div>
+    <div class="cat-btn" onclick="filterCat('mobil','luxury',this)">Luxury</div>
+  </div>
+  <div class="unit-grid" id="grid-mobil">
+    <div class="unit-card" data-cat="city" onclick="openBooking('mobil','Daihatsu Ayla MT')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/2014_Daihatsu_Ayla_1.0_X_B100RS_%2820190615%29.jpg/330px-2014_Daihatsu_Ayla_1.0_X_B100RS_%2820190615%29.jpg" alt="Daihatsu Ayla" loading="lazy"><span class="cat-badge">City Car</span><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Daihatsu Ayla MT</div><div class="unit-type">City Car • Manual • 4 Kursi</div><div class="unit-price-row"><span class="unit-price">Rp 250.000</span><span class="unit-price-note">/12 jam</span></div><div class="unit-price-row"><span class="unit-price">Rp 300.000</span><span class="unit-price-note">/24 jam</span></div><div class="unit-deposit">🔒 Jaminan: Motor + STNK atau Deposit Rp 500.000</div></div></div>
+    <div class="unit-card" data-cat="city" onclick="openBooking('mobil','Toyota Agya AT')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/2023_Toyota_Agya_GR_Sport_%28Indonesia%29_front_view.jpg/330px-2023_Toyota_Agya_GR_Sport_%28Indonesia%29_front_view.jpg" alt="Toyota Agya" loading="lazy"><span class="cat-badge">City Car</span><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Toyota Agya AT</div><div class="unit-type">City Car • Matic • 4 Kursi</div><div class="unit-price-row"><span class="unit-price">Rp 250.000</span><span class="unit-price-note">/12 jam</span></div><div class="unit-price-row"><span class="unit-price">Rp 300.000</span><span class="unit-price-note">/24 jam</span></div><div class="unit-deposit">🔒 Jaminan: Motor + STNK atau Deposit Rp 500.000</div></div></div>
+    <div class="unit-card" data-cat="hatchback" onclick="openBooking('mobil','Honda HR-V')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2023_Honda_HR-V_Advance_i-MMD_CVT_1.5.jpg/330px-2023_Honda_HR-V_Advance_i-MMD_CVT_1.5.jpg" alt="Honda HR-V" loading="lazy"><span class="cat-badge">Hatchback</span><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Honda HR-V</div><div class="unit-type">Hatchback/Crossover • Matic • 5 Kursi</div><div class="unit-price-row"><span class="unit-price">Rp 550.000</span><span class="unit-price-note">/12 jam</span></div><div class="unit-price-row"><span class="unit-price">Rp 600.000</span><span class="unit-price-note">/24 jam</span></div><div class="unit-deposit">🔒 Jaminan: Deposit Rp 1.000.000</div></div></div>
+    <div class="unit-card" data-cat="mpv" onclick="openBooking('mobil','Toyota Veloz AT')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/2022_Toyota_Veloz_20221010.jpg/330px-2022_Toyota_Veloz_20221010.jpg" alt="Toyota Veloz" loading="lazy"><span class="cat-badge">MPV</span><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Toyota Veloz AT</div><div class="unit-type">MPV • Matic • 7 Kursi</div><div class="unit-price-row"><span class="unit-price">Rp 400.000</span><span class="unit-price-note">/12 jam</span></div><div class="unit-price-row"><span class="unit-price">Rp 450.000</span><span class="unit-price-note">/24 jam</span></div><div class="unit-deposit">🔒 Jaminan: Deposit Rp 1.000.000</div></div></div>
+    <div class="unit-card" data-cat="mpv" onclick="openBooking('mobil','Mitsubishi Xpander')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Mitsubishi_Xpander_NC1W_FL2_1.5_GLS_Quartz_White_Pearl_01.jpg/330px-Mitsubishi_Xpander_NC1W_FL2_1.5_GLS_Quartz_White_Pearl_01.jpg" alt="Mitsubishi Xpander" loading="lazy"><span class="cat-badge">MPV</span><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Mitsubishi Xpander</div><div class="unit-type">MPV • Matic • 7 Kursi</div><div class="unit-price-row"><span class="unit-price">Rp 400.000</span><span class="unit-price-note">/12 jam</span></div><div class="unit-price-row"><span class="unit-price">Rp 450.000</span><span class="unit-price-note">/24 jam</span></div><div class="unit-deposit">🔒 Jaminan: Deposit Rp 1.000.000</div></div></div>
+    <div class="unit-card" data-cat="mpv" onclick="openBooking('mobil','Innova Zenix Hybrid')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Toyota_Innova_Zenix_2.0_V_%28III%29_%E2%80%93_f_22032025.jpg/330px-Toyota_Innova_Zenix_2.0_V_%28III%29_%E2%80%93_f_22032025.jpg" alt="Innova Zenix Hybrid" loading="lazy"><span class="cat-badge">MPV</span><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Innova Zenix Hybrid</div><div class="unit-type">MPV Hybrid • Matic • 7 Kursi</div><div class="unit-price-row"><span class="unit-price">Rp 900.000</span><span class="unit-price-note">/12 jam</span></div><div class="unit-price-row"><span class="unit-price">Rp 1.000.000</span><span class="unit-price-note">/24 jam</span></div><div class="unit-deposit">🔒 Jaminan: Deposit Rp 1.500.000</div></div></div>
+    <div class="unit-card" data-cat="suv" onclick="openBooking('mobil','Mitsubishi Xforce')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/2023_Mitsubishi_Eclipse_Cross_SEL_Touring%2C_front_left.jpg/330px-2023_Mitsubishi_Eclipse_Cross_SEL_Touring%2C_front_left.jpg" alt="Mitsubishi Xforce" loading="lazy"><span class="cat-badge">SUV</span><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Mitsubishi Xforce</div><div class="unit-type">SUV Compact • Matic • 5 Kursi</div><div class="unit-price-row"><span class="unit-price">Rp 550.000</span><span class="unit-price-note">/12 jam</span></div><div class="unit-price-row"><span class="unit-price">Rp 600.000</span><span class="unit-price-note">/24 jam</span></div><div class="unit-deposit">🔒 Jaminan: Deposit Rp 1.200.000</div></div></div>
+    <div class="unit-card" data-cat="suv" onclick="openBooking('mobil','Toyota Fortuner')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/2022_Toyota_Fortuner_2.8_VRZ_GR_Sport_4x2_GUN166R_%2820220428%29.jpg/330px-2022_Toyota_Fortuner_2.8_VRZ_GR_Sport_4x2_GUN166R_%2820220428%29.jpg" alt="Toyota Fortuner" loading="lazy"><span class="cat-badge">SUV</span><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Toyota Fortuner</div><div class="unit-type">SUV • Matic • 7 Kursi</div><div class="unit-price-row"><span class="unit-price">Rp 700.000</span><span class="unit-price-note">/12 jam</span></div><div class="unit-price-row"><span class="unit-price">Rp 800.000</span><span class="unit-price-note">/24 jam</span></div><div class="unit-deposit">🔒 Jaminan: Deposit Rp 1.500.000</div></div></div>
+    <div class="unit-card" data-cat="luxury" onclick="openBooking('mobil','Pajero Sport')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/2021_Mitsubishi_Pajero_Sport_2.4_Dakar_4x2_%28Indonesia%29_front_view_01.jpg/330px-2021_Mitsubishi_Pajero_Sport_2.4_Dakar_4x2_%28Indonesia%29_front_view_01.jpg" alt="Pajero Sport" loading="lazy"><span class="cat-badge">Luxury</span><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Pajero Sport</div><div class="unit-type">SUV Luxury • 4WD • 7 Kursi</div><div class="unit-price-row"><span class="unit-price">Rp 1.200.000</span><span class="unit-price-note">/12 jam</span></div><div class="unit-price-row"><span class="unit-price">Rp 1.300.000</span><span class="unit-price-note">/24 jam</span></div><div class="unit-deposit">🔒 Jaminan: Deposit Rp 2.000.000</div></div></div>
+  </div>
+  <button class="show-more-btn" id="more-grid-mobil" onclick="showMore('grid-mobil')">Lihat Selengkapnya ▾</button>
+</div>
+
+<!-- PANEL: SEWA MOTOR -->
+<div class="panel-wrap" id="panel-motor">
+  <div class="panel-title">🛵 Sewa Motor</div>
+  <div class="panel-sub">Motor matic terawat, irit, siap antar ke lokasi Anda.</div>
+  <div class="unit-grid" id="grid-motor">
+    <div class="unit-card" onclick="openBooking('motor','Honda Beat')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/2020_Honda_BeAT_CBS_110_%2820211007%29.jpg/330px-2020_Honda_BeAT_CBS_110_%2820211007%29.jpg" alt="Honda Beat" loading="lazy"><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Honda Beat</div><div class="unit-type">Matic • Efisien</div><div class="unit-price-row"><span class="unit-price">Rp 125.000</span><span class="unit-price-note">/hari</span></div><div class="unit-deposit">🔒 Deposit Rp 300.000</div></div></div>
+    <div class="unit-card" onclick="openBooking('motor','Honda PCX 160')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/2022_Honda_PCX_160.jpg/330px-2022_Honda_PCX_160.jpg" alt="Honda PCX 160" loading="lazy"><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Honda PCX 160</div><div class="unit-type">Matic Premium</div><div class="unit-price-row"><span class="unit-price">Rp 175.000</span><span class="unit-price-note">/hari</span></div><div class="unit-deposit">🔒 Deposit Rp 300.000</div></div></div>
+    <div class="unit-card" onclick="openBooking('motor','Yamaha NMAX')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Yamaha_NMAX_Turbo_155_front_side_view_in_Indonesia.jpg/330px-Yamaha_NMAX_Turbo_155_front_side_view_in_Indonesia.jpg" alt="Yamaha NMAX" loading="lazy"><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Yamaha NMAX</div><div class="unit-type">Matic Premium • ABS</div><div class="unit-price-row"><span class="unit-price">Rp 175.000</span><span class="unit-price-note">/hari</span></div><div class="unit-deposit">🔒 Deposit Rp 300.000</div></div></div>
+    <div class="unit-card" onclick="openBooking('motor','Honda Scoopy')"><div class="unit-thumb"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/2022_Honda_Scoopy_110.jpg/330px-2022_Honda_Scoopy_110.jpg" alt="Honda Scoopy" loading="lazy"><span class="status-pill available">Tersedia</span></div><div class="unit-body"><div class="unit-name">Honda Scoopy</div><div class="unit-type">Matic • Stylish</div><div class="unit-price-row"><span class="unit-price">Rp 150.000</span><span class="unit-price-note">/hari</span></div><div class="unit-deposit">🔒 Deposit Rp 300.000</div></div></div>
+  </div>
+  <button class="show-more-btn" id="more-grid-motor" style="display:none" onclick="showMore('grid-motor')">Lihat Selengkapnya ▾</button>
+</div>
+
+<!-- PANEL: SEWA IPHONE -->
+<div class="panel-wrap" id="panel-iphone">
+  <div class="panel-title">📱 Sewa iPhone</div>
+  <div class="panel-sub">Berbagai seri iPhone siap pakai, harian atau mingguan.</div>
+  <div class="svc-list">
+    <div class="svc-card"><div class="svc-ico"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/IPhone_15_Pro_Vector.svg/330px-IPhone_15_Pro_Vector.svg.png" alt="iPhone 15"></div><div><div class="svc-name">iPhone 15 Series</div><div class="svc-desc">iPhone 15, 15 Plus, 15 Pro, 15 Pro Max.</div><div class="svc-price">Mulai Rp 150.000/hari</div></div></div>
+    <div class="svc-card"><div class="svc-ico"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/IPhone_14_Pro_vector.svg/330px-IPhone_14_Pro_vector.svg.png" alt="iPhone 14"></div><div><div class="svc-name">iPhone 14 Series</div><div class="svc-desc">iPhone 14, 14 Plus, 14 Pro, 14 Pro Max.</div><div class="svc-price">Mulai Rp 120.000/hari</div></div></div>
+    <div class="svc-card"><div class="svc-ico"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/IPhone_13_vector.svg/330px-IPhone_13_vector.svg.png" alt="iPhone 13"></div><div><div class="svc-name">iPhone 13 &amp; 12 Series</div><div class="svc-desc">Pilihan hemat untuk kebutuhan harian.</div><div class="svc-price">Mulai Rp 80.000/hari</div></div></div>
+    <div class="svc-card"><div class="svc-ico">🎬</div><div><div class="svc-name">Paket Konten Kreator</div><div class="svc-desc">iPhone Pro + gimbal + ring light.</div><div class="svc-price">Paket mulai Rp 250.000/hari</div></div></div>
+  </div>
+  <button class="btn-pesan" onclick="openBooking('iphone')">📲 Booking Sewa iPhone</button>
+</div>
+
+<!-- PANEL: SERVICE -->
+<div class="panel-wrap" id="panel-service">
+  <div class="panel-title">🔧 Service Mobil &amp; Motor</div>
+  <div class="panel-sub">Oli, tune-up, rem, AC, kaki-kaki, kelistrikan — mobil &amp; motor.</div>
+  <div class="svc-list">
+    <div class="svc-card"><div class="svc-ico">🔧</div><div><div class="svc-name">Servis Berkala</div><div class="svc-desc">Ganti oli, filter, tune-up. Roda 2 &amp; 4.</div><div class="svc-price">Rp 150.000 – 500.000</div></div></div>
+    <div class="svc-card"><div class="svc-ico">⚙️</div><div><div class="svc-name">Perbaikan Mesin</div><div class="svc-desc">Diagnosa dan perbaikan mesin, injektor, karburator.</div><div class="svc-price">Estimasi sesuai kerusakan</div></div></div>
+    <div class="svc-card"><div class="svc-ico">⚡</div><div><div class="svc-name">Kelistrikan</div><div class="svc-desc">Aki, alternator, lampu, sensor kendaraan.</div><div class="svc-price">Rp 100.000 – 600.000</div></div></div>
+    <div class="svc-card"><div class="svc-ico">🦵</div><div><div class="svc-name">Kaki-Kaki &amp; Rem</div><div class="svc-desc">Spooring, balancing, kampas rem, shock absorber.</div><div class="svc-price">Rp 150.000 – 800.000</div></div></div>
+    <div class="svc-card"><div class="svc-ico">❄️</div><div><div class="svc-name">AC Mobil</div><div class="svc-desc">Isi freon, ganti filter kabin, perbaikan kompresor.</div><div class="svc-price">Rp 200.000 – 800.000</div></div></div>
+    <div class="svc-card"><div class="svc-ico">🎨</div><div><div class="svc-name">Body Repair</div><div class="svc-desc">Cat, dempul, ketok magic, perbaikan panel bodi kendaraan.</div><div class="svc-price">Mulai Rp 500.000</div></div></div>
+  </div>
+  <button class="btn-pesan" onclick="openBooking('service')">📲 Booking Service</button>
+</div>
+
+<!-- PANEL: GPS -->
+<div class="panel-wrap" id="panel-gps">
+  <div class="panel-title">📡 Pasang GPS Tracker</div>
+  <div class="panel-sub">Alat + pasang, pantau posisi kendaraan real-time via HP.</div>
+  <div class="svc-list">
+    <div class="svc-card"><div class="svc-ico">📡</div><div><div class="svc-name">GPS Tracker Motor</div><div class="svc-desc">Compact, tersembunyi, akurasi tinggi.</div><div class="svc-price">Mulai Rp 650.000 (alat + pasang)</div></div></div>
+    <div class="svc-card"><div class="svc-ico">🚗</div><div><div class="svc-name">GPS Tracker Mobil</div><div class="svc-desc">Dipasang tersembunyi, sinyal kuat.</div><div class="svc-price">Mulai Rp 1.500.000 (alat + pasang)</div></div></div>
+    <div class="svc-card"><div class="svc-ico">✂️</div><div><div class="svc-name">Fitur Cut-Off Mesin</div><div class="svc-desc">Matikan mesin dari jarak jauh via HP.</div><div class="svc-price">Tersedia di semua paket</div></div></div>
+    <div class="svc-card"><div class="svc-ico">📱</div><div><div class="svc-name">Monitoring Real-Time</div><div class="svc-desc">Pantau posisi live + riwayat perjalanan.</div><div class="svc-price">Termasuk dalam paket</div></div></div>
+  </div>
+  <button class="btn-pesan" onclick="openBooking('gps')">📲 Booking Pasang GPS</button>
+</div>
+
+<!-- PANEL: INSPEKSI -->
+<div class="panel-wrap" id="panel-inspeksi">
+  <div class="panel-title">🔍 Inspeksi Mobil</div>
+  <div class="panel-sub">Cek kondisi sebelum beli mobil bekas. Laporan lengkap via WhatsApp.</div>
+  <div class="svc-list">
+    <div class="svc-card"><div class="svc-ico">🔍</div><div><div class="svc-name">Inspeksi Eksterior</div><div class="svc-desc">Cat, dempul, karat, keaslian panel bodi.</div></div></div>
+    <div class="svc-card"><div class="svc-ico">⚙️</div><div><div class="svc-name">Inspeksi Mesin</div><div class="svc-desc">Mesin, kebocoran oli, kompresi, performa.</div></div></div>
+    <div class="svc-card"><div class="svc-ico">⚡</div><div><div class="svc-name">Inspeksi Kelistrikan</div><div class="svc-desc">Lampu, AC, power window, sensor.</div></div></div>
+    <div class="svc-card"><div class="svc-ico">📋</div><div><div class="svc-name">Laporan Lengkap</div><div class="svc-desc">Foto + penilaian kondisi + estimasi biaya perbaikan.</div></div></div>
+  </div>
+  <button class="btn-pesan" onclick="openBooking('inspeksi')">📲 Booking Inspeksi</button>
+</div>
+
+<!-- PANEL: JUAL BELI -->
+<div class="panel-wrap" id="panel-jualbeli">
+  <div class="panel-title">🤝 Jual Beli Mobil</div>
+  <div class="panel-sub">Beli atau jual mobil bekas. Proses cepat, harga fair.</div>
+  <div class="jb-card"><div class="jb-head" style="background:linear-gradient(135deg,#a8161c,#dc1f26);"><div class="jb-head-icon">🏷️</div><div><div class="jb-head-title">Jual Mobil Anda</div><div class="jb-head-sub">Kami beli mobil bekas Anda</div></div></div><div class="jb-body"><ul class="jb-feats"><li>Survei langsung ke lokasi</li><li>Harga transparan dan fair</li><li>Pembayaran transfer hari itu</li><li>Tanpa biaya komisi penjual</li></ul></div></div>
+  <div class="jb-card"><div class="jb-head" style="background:linear-gradient(135deg,#1a3a1a,#2d6b33);"><div class="jb-head-icon">🔑</div><div><div class="jb-head-title">Beli Mobil Pilihan</div><div class="jb-head-sub">Stok mobil bekas berkualitas</div></div></div><div class="jb-body"><ul class="jb-feats"><li>Stok terinspeksi &amp; terawat</li><li>Harga kompetitif, bisa nego</li><li>Bisa bantu proses KKB / kredit</li><li>Garansi mesin 1 bulan</li></ul></div></div>
+  <button class="btn-pesan" onclick="openBooking('jualbeli')">📲 Hubungi Admin</button>
+</div>
+
+<!-- PANEL: HIACE & ELF -->
+<div class="panel-wrap" id="panel-hiace">
+  <div class="panel-title">🚐 Hiace &amp; Elf</div>
+  <div class="panel-sub">Sewa Hiace &amp; Elf untuk wisata, perjalanan keluarga, atau corporate trip. Sudah termasuk driver berpengalaman.</div>
+  <div class="svc-list">
+    <div class="svc-card"><div class="svc-ico">✈️</div><div><div class="svc-name">Tour Soeta</div><div class="svc-desc">Bandara Soekarno-Hatta &amp; sekitar Jabodetabek. Kapasitas 10–15 orang.</div><div class="svc-price">Rp 2.400.000 / hari</div></div></div>
+    <div class="svc-card"><div class="svc-ico">🏙️</div><div><div class="svc-name">Tour Bandung</div><div class="svc-desc">Wisata Bandung dan sekitarnya. Bebas pilih destinasi wisata.</div><div class="svc-price">Rp 2.300.000 / hari</div></div></div>
+    <div class="svc-card"><div class="svc-ico">🌊</div><div><div class="svc-name">Tour Cirebon</div><div class="svc-desc">Kuliner, wisata sejarah, dan religi di Kota Udang.</div><div class="svc-price">Rp 2.400.000 / hari</div></div></div>
+    <div class="svc-card"><div class="svc-ico">🏖️</div><div><div class="svc-name">Tour Pangandaran</div><div class="svc-desc">Paket 2 hari ke Pantai Pangandaran &amp; Green Canyon. Penginapan tidak termasuk.</div><div class="svc-price">Rp 7.500.000 / 2 hari</div></div></div>
+  </div>
+  <button class="btn-pesan" onclick="openBooking('hiace')">🚐 Booking Hiace &amp; Elf</button>
+</div>
+
+</div><!-- end panels -->
+
+<!-- ══ OVERLAY ══ -->
+<div class="sheet-overlay" id="sheet-overlay" onclick="closeSheet()"></div>
+
+<!-- ══ BOOKING SHEET ══ -->
+<div class="sheet" id="booking-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <span class="sheet-title" id="booking-sheet-title">Form Booking</span>
+    <button class="sheet-close" onclick="closeSheet()">✕</button>
+  </div>
+  <div class="sheet-body">
+
+    <!-- FORM MOBIL -->
+    <div class="booking-form" id="form-mobil">
+      <div class="form-grid">
+        <div class="form-group"><label>Nama Lengkap *</label><input type="text" id="sm-nama" placeholder="Nama sesuai KTP"/></div>
+        <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="sm-wa" placeholder="08xxxxxxxxxx"/></div>
+        <div class="form-group"><label>Pilih Unit *</label><select id="sm-unit"><option value="">-- Pilih Kendaraan --</option><option>Daihatsu Ayla MT</option><option>Toyota Agya AT</option><option>Honda HR-V</option><option>Toyota Veloz AT</option><option>Mitsubishi Xpander</option><option>Innova Zenix Hybrid</option><option>Mitsubishi Xforce</option><option>Toyota Fortuner</option><option>Pajero Sport</option><option>Lainnya (tanyakan admin)</option></select></div>
+        <div class="form-group"><label>Dengan Sopir?</label><select id="sm-sopir"><option value="Tanpa Sopir">Tanpa Sopir</option><option value="Dengan Sopir">Dengan Sopir</option></select></div>
+        <div class="form-group"><label>Tanggal Mulai *</label><input type="date" id="sm-mulai"/></div>
+        <div class="form-group"><label>Tanggal Selesai *</label><input type="date" id="sm-selesai"/></div>
+        <div class="form-group"><label>Jam Pengambilan</label><input type="time" id="sm-jam"/></div>
+        <div class="form-group"><label>Alamat Penjemputan</label><input type="text" id="sm-alamat" placeholder="Alamat lengkap"/></div>
+        <div class="form-full">
+          <div class="upload-label-title">Verifikasi Dokumen (Wajib)</div>
+          <div class="upload-notice">⚠️ Wajib upload: Foto KTP, SIM, KK, dan Screenshot Media Sosial aktif demi keamanan bersama.</div>
+          <div class="upload-grid">
+            <label class="upload-zone" id="zone-sm-ktp" onclick="triggerUpload('up-sm-ktp','zone-sm-ktp','lbl-sm-ktp')"><div class="upload-icon">🪪</div><div class="upload-text"><b>Foto KTP *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-sm-ktp"></div></div><input type="file" id="up-sm-ktp" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-ktp','lbl-sm-ktp')"/></label>
+            <label class="upload-zone" id="zone-sm-sim" onclick="triggerUpload('up-sm-sim','zone-sm-sim','lbl-sm-sim')"><div class="upload-icon">🚘</div><div class="upload-text"><b>Foto SIM *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-sm-sim"></div></div><input type="file" id="up-sm-sim" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-sim','lbl-sm-sim')"/></label>
+            <label class="upload-zone" id="zone-sm-kk" onclick="triggerUpload('up-sm-kk','zone-sm-kk','lbl-sm-kk')"><div class="upload-icon">📄</div><div class="upload-text"><b>Foto KK *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-sm-kk"></div></div><input type="file" id="up-sm-kk" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-kk','lbl-sm-kk')"/></label>
+            <label class="upload-zone" id="zone-sm-medsos" onclick="triggerUpload('up-sm-medsos','zone-sm-medsos','lbl-sm-medsos')"><div class="upload-icon">📸</div><div class="upload-text"><b>Screenshot Media Sosial *</b><small>Instagram / Facebook / TikTok aktif</small><div class="upload-status" id="lbl-sm-medsos"></div></div><input type="file" id="up-sm-medsos" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-medsos','lbl-sm-medsos')"/></label>
+          </div>
+        </div>
+        <div class="form-full">
+          <div class="upload-label-title" style="margin-bottom:6px;">Metode Pembayaran</div>
+          <div class="pay-row"><div class="pay-btn sel" onclick="selPay(this)">🏦 Transfer BCA — 0552280944 a.n. Faris Wahyu</div></div>
+        </div>
+        <div class="form-full"><button class="submit-btn" onclick="submitSewaMobil()">📲 Booking via WhatsApp</button></div>
+      </div>
+    </div>
+
+    <!-- FORM MOTOR -->
+    <div class="booking-form" id="form-motor">
+      <div class="form-grid">
+        <div class="form-group"><label>Nama Lengkap *</label><input type="text" id="mo-nama" placeholder="Nama sesuai KTP"/></div>
+        <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="mo-wa" placeholder="08xxxxxxxxxx"/></div>
+        <div class="form-group"><label>Pilih Unit *</label><select id="mo-unit"><option value="">-- Pilih Motor --</option><option>Honda Beat</option><option>Honda PCX 160</option><option>Yamaha NMAX</option><option>Honda Scoopy</option><option>Lainnya</option></select></div>
+        <div class="form-group"><label>Durasi Sewa</label><select id="mo-durasi"><option>1 Hari</option><option>2 Hari</option><option>3 Hari</option><option>1 Minggu</option><option>1 Bulan</option></select></div>
+        <div class="form-group"><label>Tanggal Mulai *</label><input type="date" id="mo-mulai"/></div>
+        <div class="form-group"><label>Jam Pengambilan</label><input type="time" id="mo-jam"/></div>
+        <div class="form-full">
+          <div class="upload-label-title">Verifikasi Dokumen (Wajib)</div>
+          <div class="upload-notice">⚠️ Wajib upload: Foto KTP, SIM, KK, dan Screenshot Media Sosial aktif.</div>
+          <div class="upload-grid">
+            <label class="upload-zone" id="zone-mo-ktp" onclick="triggerUpload('up-mo-ktp','zone-mo-ktp','lbl-mo-ktp')"><div class="upload-icon">🪪</div><div class="upload-text"><b>Foto KTP *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-mo-ktp"></div></div><input type="file" id="up-mo-ktp" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-ktp','lbl-mo-ktp')"/></label>
+            <label class="upload-zone" id="zone-mo-sim" onclick="triggerUpload('up-mo-sim','zone-mo-sim','lbl-mo-sim')"><div class="upload-icon">🚘</div><div class="upload-text"><b>Foto SIM *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-mo-sim"></div></div><input type="file" id="up-mo-sim" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-sim','lbl-mo-sim')"/></label>
+            <label class="upload-zone" id="zone-mo-kk" onclick="triggerUpload('up-mo-kk','zone-mo-kk','lbl-mo-kk')"><div class="upload-icon">📄</div><div class="upload-text"><b>Foto KK *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-mo-kk"></div></div><input type="file" id="up-mo-kk" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-kk','lbl-mo-kk')"/></label>
+            <label class="upload-zone" id="zone-mo-medsos" onclick="triggerUpload('up-mo-medsos','zone-mo-medsos','lbl-mo-medsos')"><div class="upload-icon">📸</div><div class="upload-text"><b>Screenshot Media Sosial *</b><small>Instagram / Facebook / TikTok aktif</small><div class="upload-status" id="lbl-mo-medsos"></div></div><input type="file" id="up-mo-medsos" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-medsos','lbl-mo-medsos')"/></label>
+          </div>
+        </div>
+        <div class="form-full"><button class="submit-btn" onclick="submitSewaMotor()">📲 Booking via WhatsApp</button></div>
+      </div>
+    </div>
+
+    <!-- FORM IPHONE -->
+    <div class="booking-form" id="form-iphone">
+      <div class="form-grid">
+        <div class="form-group"><label>Nama Lengkap *</label><input type="text" id="ip-nama" placeholder="Nama lengkap"/></div>
+        <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="ip-wa" placeholder="08xxxxxxxxxx"/></div>
+        <div class="form-group"><label>Tipe iPhone *</label><select id="ip-tipe"><option value="">-- Pilih Tipe --</option><option>iPhone 15 Pro Max</option><option>iPhone 15 Pro</option><option>iPhone 15 Plus</option><option>iPhone 15</option><option>iPhone 14 Pro Max</option><option>iPhone 14 Pro</option><option>iPhone 14</option><option>iPhone 13</option><option>iPhone 12</option><option>Paket Konten Kreator</option></select></div>
+        <div class="form-group"><label>Keperluan</label><select id="ip-keperluan"><option>Pekerjaan / Meeting</option><option>Konten Kreator</option><option>Pribadi / Backup</option><option>Lainnya</option></select></div>
+        <div class="form-group"><label>Tanggal Mulai *</label><input type="date" id="ip-mulai"/></div>
+        <div class="form-group"><label>Durasi Sewa</label><select id="ip-durasi"><option>1 Hari</option><option>2 Hari</option><option>3 Hari</option><option>1 Minggu</option></select></div>
+        <div class="form-group form-full"><label>Catatan</label><textarea id="ip-note" rows="2" style="resize:none;" placeholder="Aksesori tambahan, permintaan khusus..."></textarea></div>
+        <div class="form-full"><button class="submit-btn" onclick="submitSewaIphone()">📲 Booking via WhatsApp</button></div>
+      </div>
+    </div>
+
+    <!-- FORM SERVICE -->
+    <div class="booking-form" id="form-service">
+      <div class="form-grid">
+        <div class="form-group"><label>Nama *</label><input type="text" id="sv-nama" placeholder="Nama lengkap"/></div>
+        <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="sv-wa" placeholder="08xxxxxxxxxx"/></div>
+        <div class="form-group"><label>Jenis Kendaraan *</label><select id="sv-jenis"><option value="">-- Pilih --</option><option>Mobil</option><option>Motor</option></select></div>
+        <div class="form-group"><label>Merek &amp; Tipe</label><input type="text" id="sv-unit" placeholder="Contoh: Toyota Avanza 2020"/></div>
+        <div class="form-group"><label>Jenis Servis *</label><select id="sv-jenis-servis"><option value="">-- Pilih Servis --</option><option>Servis Berkala</option><option>Perbaikan Mesin</option><option>Kelistrikan</option><option>Kaki-Kaki &amp; Rem</option><option>Ganti Oli</option><option>AC Mobil</option><option>Lainnya</option></select></div>
+        <div class="form-group"><label>Tanggal Servis</label><input type="date" id="sv-tgl"/></div>
+        <div class="form-group form-full"><label>Keluhan</label><textarea id="sv-note" rows="3" style="resize:none;" placeholder="Ceritakan masalah kendaraan Anda..."></textarea></div>
+        <div class="form-full"><button class="submit-btn" onclick="submitService()">📲 Booking via WhatsApp</button></div>
+      </div>
+    </div>
+
+    <!-- FORM GPS -->
+    <div class="booking-form" id="form-gps">
+      <div class="form-grid">
+        <div class="form-group"><label>Nama *</label><input type="text" id="gp-nama" placeholder="Nama lengkap"/></div>
+        <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="gp-wa" placeholder="08xxxxxxxxxx"/></div>
+        <div class="form-group"><label>Jenis Kendaraan *</label><select id="gp-jenis"><option value="">-- Pilih --</option><option>Motor</option><option>Mobil</option></select></div>
+        <div class="form-group"><label>Merek &amp; Tipe</label><input type="text" id="gp-unit" placeholder="Contoh: Honda Beat 2022"/></div>
+        <div class="form-group form-full"><label>Lokasi Pemasangan</label><input type="text" id="gp-lokasi" placeholder="Alamat untuk kunjungan teknisi"/></div>
+        <div class="form-group form-full"><label>Catatan</label><textarea id="gp-note" rows="2" style="resize:none;" placeholder="Permintaan khusus..."></textarea></div>
+        <div class="form-full"><button class="submit-btn" onclick="submitGPS()">📲 Booking via WhatsApp</button></div>
+      </div>
+    </div>
+
+    <!-- FORM INSPEKSI -->
+    <div class="booking-form" id="form-inspeksi">
+      <div class="form-grid">
+        <div class="form-group"><label>Nama *</label><input type="text" id="in-nama" placeholder="Nama lengkap"/></div>
+        <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="in-wa" placeholder="08xxxxxxxxxx"/></div>
+        <div class="form-group"><label>Merek &amp; Tipe Mobil *</label><input type="text" id="in-unit" placeholder="Contoh: Toyota Avanza 2018"/></div>
+        <div class="form-group"><label>Tanggal Inspeksi</label><input type="date" id="in-tgl"/></div>
+        <div class="form-group form-full"><label>Lokasi Mobil *</label><input type="text" id="in-lokasi" placeholder="Alamat lengkap lokasi mobil"/></div>
+        <div class="form-group form-full"><label>Sumber Mobil</label><input type="text" id="in-sumber" placeholder="OLX, showroom, perorangan, dll..."/></div>
+        <div class="form-full"><button class="submit-btn" onclick="submitInspeksi()">📲 Booking via WhatsApp</button></div>
+      </div>
+    </div>
+
+    <!-- FORM JUAL BELI -->
+    <div class="booking-form" id="form-jualbeli">
+      <div class="form-grid">
+        <div class="form-group"><label>Nama *</label><input type="text" id="jb-nama" placeholder="Nama lengkap"/></div>
+        <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="jb-wa" placeholder="08xxxxxxxxxx"/></div>
+        <div class="form-group form-full"><label>Keperluan *</label><select id="jb-tipe"><option value="">-- Pilih --</option><option value="Jual">Saya ingin JUAL mobil</option><option value="Beli">Saya ingin BELI mobil</option><option value="Tukar Tambah">Tukar Tambah</option></select></div>
+        <div class="form-group"><label>Merek &amp; Tipe Mobil</label><input type="text" id="jb-unit" placeholder="Contoh: Toyota Avanza 2019"/></div>
+        <div class="form-group"><label>Tahun &amp; Warna</label><input type="text" id="jb-tahun" placeholder="Contoh: 2019 · Putih"/></div>
+        <div class="form-group form-full"><label>Harga / Budget</label><input type="text" id="jb-harga" placeholder="Rp 150.000.000 atau budget maksimal"/></div>
+        <div class="form-group form-full"><label>Keterangan</label><textarea id="jb-note" rows="3" style="resize:none;" placeholder="Kondisi, kilometer, kelengkapan surat, dll..."></textarea></div>
+        <div class="form-full"><button class="submit-btn" onclick="submitJualBeli()">📲 Hubungi Admin via WhatsApp</button></div>
+      </div>
+    </div>
+
+    <!-- FORM HIACE -->
+    <div class="booking-form" id="form-hiace">
+      <div class="form-grid">
+        <div class="form-group"><label>Nama *</label><input type="text" id="hi-nama" placeholder="Nama lengkap"/></div>
+        <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="hi-wa" placeholder="08xxxxxxxxxx"/></div>
+        <div class="form-group form-full"><label>Paket Tour *</label><select id="hi-paket"><option value="">-- Pilih Paket --</option><option>Tour Soeta — Rp 2.400.000/hari</option><option>Tour Bandung — Rp 2.300.000/hari</option><option>Tour Cirebon — Rp 2.400.000/hari</option><option>Tour Pangandaran — Rp 7.500.000/2 hari</option></select></div>
+        <div class="form-group"><label>Tanggal Berangkat *</label><input type="date" id="hi-tgl"/></div>
+        <div class="form-group"><label>Jumlah Penumpang</label><select id="hi-pax"><option>1–5 orang</option><option>6–10 orang</option><option>11–15 orang</option><option>16–20 orang</option></select></div>
+        <div class="form-group form-full"><label>Lokasi Penjemputan *</label><input type="text" id="hi-lokasi" placeholder="Alamat lengkap penjemputan"/></div>
+        <div class="form-group form-full"><label>Catatan</label><textarea id="hi-note" rows="2" style="resize:none;" placeholder="Permintaan khusus, destinasi tambahan..."></textarea></div>
+        <div class="form-full"><button class="submit-btn" onclick="submitHiace()">📲 Booking via WhatsApp</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ S&K SHEET ══ -->
+<div class="sheet" id="sk-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <span class="sheet-title">Syarat &amp; Ketentuan</span>
+    <button class="sheet-close" onclick="closeSheet()">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div class="sk-accordion">
+      <div class="sk-item open">
+        <div class="sk-head" onclick="toggleSK(this)"><div class="sk-head-title">📋 Persyaratan Penyewa</div><span class="sk-arrow">▼</span></div>
+        <div class="sk-body"><div class="sk-content"><ul class="sk-list">
+          <li>Fotokopi <b>KTP</b> yang masih berlaku</li>
+          <li>Fotokopi <b>KK</b> (Kartu Keluarga)</li>
+          <li>Fotokopi <b>SIM A</b> yang masih berlaku</li>
+          <li><b>Sepeda Motor + STNK</b> sebagai jaminan, atau deposit uang tunai</li>
+          <li>Screenshot <b>Media Sosial aktif</b> (Instagram / Facebook / TikTok)</li>
+        </ul><div class="sk-warn">⚠️ Sewa lepas kunci luar kota: minimal <b>3 hari</b></div></div></div>
+      </div>
+      <div class="sk-item">
+        <div class="sk-head" onclick="toggleSK(this)"><div class="sk-head-title">🤝 Serah Terima</div><span class="sk-arrow">▼</span></div>
+        <div class="sk-body"><div class="sk-content"><ul class="sk-list">
+          <li>Penyewa wajib <b>foto bersama kendaraan</b> saat serah terima</li>
+          <li>Wajib memiliki <b>SIM A berlaku</b> saat pengambilan</li>
+          <li>Perpanjangan dikonfirmasi <b>minimal 6 jam sebelum</b> pengembalian</li>
+          <li>Kendaraan dikembalikan bersih, BBM seperti saat diambil</li>
+        </ul></div></div>
+      </div>
+      <div class="sk-item">
+        <div class="sk-head" onclick="toggleSK(this)"><div class="sk-head-title">⚠️ Tanggung Jawab Penyewa</div><span class="sk-arrow">▼</span></div>
+        <div class="sk-body"><div class="sk-content"><ul class="sk-list">
+          <li><b>Semua kerusakan</b> akibat penyewa menjadi tanggung jawab penyewa</li>
+          <li>Denda untuk <b>aksesori atau komponen</b> yang hilang/rusak</li>
+          <li>Dilarang <b>menyewakan kembali</b> kendaraan ke pihak lain</li>
+          <li>Dilarang digunakan untuk kegiatan <b>illegal atau berbahaya</b></li>
+        </ul><div class="sk-warn">⚠️ FRS Autocar tidak bertanggung jawab atas kerugian akibat kecelakaan selama masa sewa.</div></div></div>
+      </div>
+      <div class="sk-item">
+        <div class="sk-head" onclick="toggleSK(this)"><div class="sk-head-title">💳 Pembayaran &amp; Deposit</div><span class="sk-arrow">▼</span></div>
+        <div class="sk-body"><div class="sk-content"><ul class="sk-list">
+          <li>Pembayaran via <b>Transfer BCA — 0552280944 a.n. Faris Wahyu</b></li>
+          <li>Deposit dikembalikan <b>sepenuhnya</b> setelah kendaraan kembali dalam kondisi baik</li>
+          <li>Bukti transfer wajib dikirim ke admin via <b>WhatsApp</b></li>
+          <li>Pembatalan kurang dari <b>24 jam</b> dikenakan biaya administrasi</li>
+        </ul></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REKENING SHEET ══ -->
+<div class="sheet" id="rek-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <span class="sheet-title">Rekening Resmi</span>
+    <button class="sheet-close" onclick="closeSheet()">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div class="rek-card">
+      <div class="rek-bank-logo">BCA</div>
+      <div class="rek-bank-type">Bank Central Asia · Tabungan</div>
+      <div class="rek-number" id="rek-bca-num">0552280944</div>
+      <div class="rek-name">a.n. Faris Wahyu</div>
+      <button class="copy-btn" onclick="copyRek('rek-bca-num',this)">📋 Salin Nomor Rekening</button>
+    </div>
+    <div class="rek-note">⚠️ <b>Penting:</b> Transfer ke BCA <b>0552280944</b> a.n. Faris Wahyu, lalu kirim bukti transfer via WhatsApp ke admin FRS Autocar.</div>
+  </div>
+</div>
+
+<!-- ══ KONTAK SHEET ══ -->
+<div class="sheet" id="kontak-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <span class="sheet-title">Hubungi Kami</span>
+    <button class="sheet-close" onclick="closeSheet()">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div class="info-row"><div class="info-ic">📞</div>0813-2005-9540</div>
+    <div class="info-row"><div class="info-ic">📸</div>@frs.autocar</div>
+    <div class="info-row"><div class="info-ic">📍</div>Rt 66 Rw 18, Sukarahayu, Subang</div>
+    <div class="info-row"><div class="info-ic">⏰</div>Senin – Minggu, 07.00 – 21.00 WIB</div>
+    <a href="https://wa.me/6281320059540" class="btn-red" target="_blank" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;">💬 Chat WhatsApp Sekarang</a>
+  </div>
+</div>
+
+<!-- ══ BOTTOM NAV ══ -->
+<div class="bottom-nav">
+  <button class="bnav-item active" id="bnav-layanan" onclick="scrollToLayanan(this)">
+    <span class="bnav-ic">🏠</span><span class="bnav-lbl">Layanan</span>
+  </button>
+  <button class="bnav-item" onclick="openSheet('sk-sheet',this)">
+    <span class="bnav-ic">📋</span><span class="bnav-lbl">S&amp;K</span>
+  </button>
+  <button class="bnav-item" onclick="openSheet('rek-sheet',this)">
+    <span class="bnav-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="var(--red)"><path d="M4 10h3v7H4zm6.5 0h3v7h-3zM2 19h20v3H2zm15-9h3v7h-3zM12 1L2 6v2h20V6z"/></svg></span>
+    <span class="bnav-lbl" style="color:var(--red)">Rekening</span>
+  </button>
+  <button class="bnav-item" onclick="openSheet('kontak-sheet',this)">
+    <span class="bnav-ic">📞</span><span class="bnav-lbl">Kontak</span>
+  </button>
+  <a class="bnav-item" href="https://wa.me/6281320059540" target="_blank">
+    <span class="bnav-ic">💬</span><span class="bnav-lbl">Chat</span>
+  </a>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const WA='6281320059540';
+
+/* ── TABS ── */
+function pilih(name,el){
+  document.querySelectorAll('.panel-wrap').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.svc-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  el.classList.add('active');
+  setTimeout(()=>document.getElementById('panels').scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+/* ── FILTER ── */
+function filterCat(panel,cat,el){
+  document.querySelectorAll('#cat-'+panel+' .cat-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('#grid-'+panel+' .unit-card').forEach(c=>{c.classList.remove('hidden-more');c.classList.toggle('hidden',cat!=='semua'&&c.dataset.cat!==cat);});
+  collapseGrid('grid-'+panel);
+}
+function collapseGrid(gridId){
+  const grid=document.getElementById(gridId);if(!grid)return;
+  const visible=[...grid.querySelectorAll('.unit-card:not(.hidden)')];
+  visible.forEach((c,i)=>c.classList.toggle('hidden-more',i>=6));
+  const btn=document.getElementById('more-'+gridId);
+  if(btn)btn.style.display=visible.length>6?'flex':'none';
+}
+function showMore(gridId){
+  document.getElementById(gridId).querySelectorAll('.unit-card.hidden-more').forEach(c=>c.classList.remove('hidden-more'));
+  const btn=document.getElementById('more-'+gridId);if(btn)btn.style.display='none';
+}
+
+/* ── SHEETS ── */
+let activeSheet=null;
+function openSheet(sheetId,btnEl){
+  document.getElementById('sheet-overlay').classList.add('show');
+  document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('show'));
+  document.getElementById(sheetId).classList.add('show');
+  document.body.style.overflow='hidden';
+  activeSheet=sheetId;
+  document.querySelectorAll('.bnav-item').forEach(b=>b.classList.remove('active'));
+  if(btnEl)btnEl.classList.add('active');
+}
+function closeSheet(){
+  document.getElementById('sheet-overlay').classList.remove('show');
+  document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('show'));
+  document.body.style.overflow='';
+  activeSheet=null;
+  document.querySelectorAll('.bnav-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('bnav-layanan').classList.add('active');
+}
+
+/* ── BOOKING ── */
+const BOOKING_TITLES={
+  mobil:'Form Booking Sewa Mobil',
+  motor:'Form Booking Sewa Motor',
+  iphone:'Form Booking Sewa iPhone',
+  service:'Booking Service',
+  gps:'Booking Pasang GPS',
+  inspeksi:'Booking Inspeksi Mobil',
+  jualbeli:'Form Jual / Beli Mobil',
+  hiace:'Booking Hiace & Elf'
+};
+function openBooking(type,unitName){
+  document.querySelectorAll('.booking-form').forEach(f=>f.style.display='none');
+  const form=document.getElementById('form-'+type);
+  if(form)form.style.display='block';
+  document.getElementById('booking-sheet-title').textContent=BOOKING_TITLES[type]||'Form Booking';
+  if(unitName){
+    const sel=form&&form.querySelector('select[id$="-unit"]');
+    if(sel)sel.value=unitName;
+  }
+  openSheet('booking-sheet');
+}
+
+/* ── BOTTOM NAV ── */
+function scrollToLayanan(el){
+  document.querySelectorAll('.bnav-item').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  closeSheet();
+  document.getElementById('layanan').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ── HELPERS ── */
+function toggleSK(head){head.closest('.sk-item').classList.toggle('open');}
+function selPay(el){const row=el.closest('.pay-row');row.querySelectorAll('.pay-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');}
+function triggerUpload(a){document.getElementById(a).click();}
+function onUpload(input,zoneId,lblId){if(input.files&&input.files[0]){document.getElementById(zoneId).classList.add('uploaded');const l=document.getElementById(lblId);l.textContent='✅ '+input.files[0].name;l.style.display='block';}}
+function copyRek(id,btn){const num=document.getElementById(id).textContent.trim();navigator.clipboard.writeText(num).then(()=>{btn.textContent='✅ Tersalin!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='📋 Salin Nomor Rekening';btn.classList.remove('copied');},2500);});}
+function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3200);}
+function req(id){return document.getElementById(id)?.value?.trim()||'';}
+function val(fields){for(const[id,label]of fields){if(!req(id)){toast('⚠️ '+label+' wajib diisi!','error');document.getElementById(id).focus();return false;}}return true;}
+function waOpen(msg){window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');}
+
+/* ── SUBMIT FUNCTIONS ── */
+function submitSewaMobil(){
+  if(!val([['sm-nama','Nama'],['sm-wa','No. WhatsApp'],['sm-unit','Unit kendaraan'],['sm-mulai','Tanggal mulai'],['sm-selesai','Tanggal selesai']]))return;
+  const docs=['up-sm-ktp','up-sm-sim','up-sm-kk','up-sm-medsos'],labels=['KTP','SIM','KK','Screenshot Medsos'];
+  for(let i=0;i<docs.length;i++){if(!document.getElementById(docs[i]).files[0]){toast('⚠️ '+labels[i]+' wajib diupload!','error');return;}}
+  const pay=document.querySelector('#form-mobil .pay-btn.sel')?.textContent||'BCA 0552280944';
+  waOpen(`Halo FRS Autocar 🚗\n\n*═══ BOOKING SEWA MOBIL ═══*\n\n👤 *Nama:* ${req('sm-nama')}\n📱 *No. WA:* ${req('sm-wa')}\n🚘 *Unit:* ${req('sm-unit')}\n👨‍✈️ *Sopir:* ${req('sm-sopir')}\n📅 *Mulai:* ${req('sm-mulai')}\n📅 *Selesai:* ${req('sm-selesai')}\n⏰ *Jam Ambil:* ${req('sm-jam')||'-'}\n📍 *Alamat:* ${req('sm-alamat')||'-'}\n💳 *Pembayaran:* ${pay}\n\n📎 Dokumen: KTP ✅ SIM ✅ KK ✅ Medsos ✅\n\nMohon konfirmasi. Terima kasih! 🙏`);
+  toast('✅ Mengalihkan ke WhatsApp...','success');
+}
+function submitSewaMotor(){
+  if(!val([['mo-nama','Nama'],['mo-wa','No. WhatsApp'],['mo-unit','Unit motor'],['mo-mulai','Tanggal mulai']]))return;
+  const docs=['up-mo-ktp','up-mo-sim','up-mo-kk','up-mo-medsos'],labels=['KTP','SIM','KK','Screenshot Medsos'];
+  for(let i=0;i<docs.length;i++){if(!document.getElementById(docs[i]).files[0]){toast('⚠️ '+labels[i]+' wajib diupload!','error');return;}}
+  waOpen(`Halo FRS Autocar 🛵\n\n*═══ BOOKING SEWA MOTOR ═══*\n\n👤 *Nama:* ${req('mo-nama')}\n📱 *No. WA:* ${req('mo-wa')}\n🛵 *Unit:* ${req('mo-unit')}\n⏳ *Durasi:* ${req('mo-durasi')}\n📅 *Mulai:* ${req('mo-mulai')}\n⏰ *Jam:* ${req('mo-jam')||'-'}\n\n📎 Dokumen: KTP ✅ SIM ✅ KK ✅ Medsos ✅\n\nMohon konfirmasi. Terima kasih! 🙏`);
+  toast('✅ Mengalihkan ke WhatsApp...','success');
+}
+function submitSewaIphone(){
+  if(!val([['ip-nama','Nama'],['ip-wa','No. WhatsApp'],['ip-tipe','Tipe iPhone'],['ip-mulai','Tanggal mulai']]))return;
+  waOpen(`Halo FRS Autocar 📱\n\n*═══ BOOKING SEWA iPHONE ═══*\n\n👤 *Nama:* ${req('ip-nama')}\n📱 *No. WA:* ${req('ip-wa')}\n📱 *Tipe:* ${req('ip-tipe')}\n🎯 *Keperluan:* ${req('ip-keperluan')}\n📅 *Mulai:* ${req('ip-mulai')}\n⏳ *Durasi:* ${req('ip-durasi')}\n📝 *Catatan:* ${req('ip-note')||'-'}\n\nMohon konfirmasi. Terima kasih! 🙏`);
+  toast('✅ Mengalihkan ke WhatsApp...','success');
+}
+function submitService(){
+  if(!val([['sv-nama','Nama'],['sv-wa','No. WhatsApp'],['sv-jenis','Jenis kendaraan'],['sv-jenis-servis','Jenis servis']]))return;
+  waOpen(`Halo FRS Autocar 🔧\n\n*═══ BOOKING SERVICE ═══*\n\n👤 *Nama:* ${req('sv-nama')}\n📱 *No. WA:* ${req('sv-wa')}\n🚘 *Kendaraan:* ${req('sv-jenis')} – ${req('sv-unit')||'-'}\n🔧 *Servis:* ${req('sv-jenis-servis')}\n📅 *Tanggal:* ${req('sv-tgl')||'-'}\n📝 *Keluhan:* ${req('sv-note')||'-'}\n\nMohon info estimasi. Terima kasih! 🙏`);
+  toast('✅ Mengalihkan ke WhatsApp...','success');
+}
+function submitGPS(){
+  if(!val([['gp-nama','Nama'],['gp-wa','No. WhatsApp'],['gp-jenis','Jenis kendaraan']]))return;
+  waOpen(`Halo FRS Autocar 📡\n\n*═══ BOOKING PASANG GPS ═══*\n\n👤 *Nama:* ${req('gp-nama')}\n📱 *No. WA:* ${req('gp-wa')}\n🚘 *Kendaraan:* ${req('gp-jenis')} – ${req('gp-unit')||'-'}\n📍 *Lokasi:* ${req('gp-lokasi')||'-'}\n📝 *Catatan:* ${req('gp-note')||'-'}\n\nMohon info paket GPS. Terima kasih! 🙏`);
+  toast('✅ Mengalihkan ke WhatsApp...','success');
+}
+function submitInspeksi(){
+  if(!val([['in-nama','Nama'],['in-wa','No. WhatsApp'],['in-unit','Merek & Tipe Mobil'],['in-lokasi','Lokasi Mobil']]))return;
+  waOpen(`Halo FRS Autocar 🔍\n\n*═══ BOOKING INSPEKSI ═══*\n\n👤 *Nama:* ${req('in-nama')}\n📱 *No. WA:* ${req('in-wa')}\n🚘 *Mobil:* ${req('in-unit')}\n📅 *Tanggal:* ${req('in-tgl')||'-'}\n📍 *Lokasi:* ${req('in-lokasi')}\n🔗 *Sumber:* ${req('in-sumber')||'-'}\n\nMohon konfirmasi jadwal. Terima kasih! 🙏`);
+  toast('✅ Mengalihkan ke WhatsApp...','success');
+}
+function submitJualBeli(){
+  if(!val([['jb-nama','Nama'],['jb-wa','No. WhatsApp'],['jb-tipe','Keperluan']]))return;
+  waOpen(`Halo FRS Autocar 🤝\n\n*═══ JUAL BELI MOBIL ═══*\n\n👤 *Nama:* ${req('jb-nama')}\n📱 *No. WA:* ${req('jb-wa')}\n🎯 *Keperluan:* ${req('jb-tipe')}\n🚘 *Mobil:* ${req('jb-unit')||'-'}\n📅 *Tahun/Warna:* ${req('jb-tahun')||'-'}\n💰 *Harga/Budget:* ${req('jb-harga')||'-'}\n📝 *Keterangan:* ${req('jb-note')||'-'}\n\nMohon ditindaklanjuti. Terima kasih! 🙏`);
+  toast('✅ Mengalihkan ke WhatsApp...','success');
+}
+function submitHiace(){
+  if(!val([['hi-nama','Nama'],['hi-wa','No. WhatsApp'],['hi-paket','Paket Tour'],['hi-lokasi','Lokasi Penjemputan']]))return;
+  waOpen(`Halo FRS Autocar 🚐\n\n*═══ BOOKING HIACE & ELF ═══*\n\n👤 *Nama:* ${req('hi-nama')}\n📱 *No. WA:* ${req('hi-wa')}\n🗺️ *Paket:* ${req('hi-paket')}\n📅 *Tanggal:* ${req('hi-tgl')||'-'}\n👥 *Penumpang:* ${req('hi-pax')}\n📍 *Penjemputan:* ${req('hi-lokasi')}\n📝 *Catatan:* ${req('hi-note')||'-'}\n\nMohon konfirmasi ketersediaan. Terima kasih! 🙏`);
+  toast('✅ Mengalihkan ke WhatsApp...','success');
+}
+
+/* ── INIT ── */
+window.addEventListener('DOMContentLoaded',()=>{
+  collapseGrid('grid-mobil');
+  collapseGrid('grid-motor');
+});
+</script>
+</body>
+</html>
