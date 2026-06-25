@@ -32,11 +32,12 @@ body{background:#F4F4F4;font-family:'Inter',sans-serif;min-height:100vh;}
 
 /* ADMIN PANEL */
 #admin-panel{display:none;min-height:100vh;}
-.admin-header{background:#fff;border-bottom:1px solid #e5e5e5;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
-.admin-brand{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#111;}
+.admin-header{background:#fff;border-bottom:1px solid #e5e5e5;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:10;}
+.admin-brand{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#111;flex-shrink:0;}
 .admin-brand span{color:var(--red);}
 .admin-brand small{font-size:12px;font-weight:400;color:#888;margin-left:8px;font-family:'Inter',sans-serif;}
-.logout-btn{background:none;border:1.5px solid #ddd;padding:7px 14px;border-radius:6px;font-size:13px;font-weight:600;color:#666;cursor:pointer;transition:all 0.2s;}
+.header-btns{display:flex;gap:6px;align-items:center;flex-shrink:0;}
+.logout-btn{background:none;border:1.5px solid #ddd;padding:6px 10px;border-radius:6px;font-size:12px;font-weight:600;color:#666;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
 .logout-btn:hover{border-color:var(--red);color:var(--red);}
 
 .admin-body{max-width:800px;margin:0 auto;padding:20px 16px;}
@@ -131,9 +132,9 @@ body{background:#F4F4F4;font-family:'Inter',sans-serif;min-height:100vh;}
 <div id="admin-panel">
   <div class="admin-header">
     <div>
-      <div class="admin-brand"><div style="display:flex;align-items:center;gap:8px"><img src="logo.png" style="height:30px;width:auto"/><span style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;font-style:italic;letter-spacing:1px;line-height:1"><span class="logo-red">AUTO</span><span style="color:#0C0C0C">CAR</span></span></div><div style="font-size:10px;color:#888;font-family:'Inter',sans-serif;font-weight:500;letter-spacing:0.5px;text-transform:uppercase;line-height:1;margin-top:2px;padding-left:38px">Admin</div></div>
+      <div class="admin-brand"><div style="display:flex;align-items:center;gap:8px"><img src="logo.png" style="height:36px;width:auto"/><span style="font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;font-style:italic;letter-spacing:1px;line-height:1"><span class="logo-red">AUTO</span><span style="color:#0C0C0C">CAR</span></span></div><div style="font-size:10px;color:#888;font-family:'Inter',sans-serif;font-weight:500;letter-spacing:0.5px;text-transform:uppercase;line-height:1;margin-top:3px;padding-left:44px">Admin</div></div>
     </div>
-    <div style="display:flex;gap:8px;align-items:center">
+    <div class="header-btns">
       <button class="logout-btn" id="install-btn" style="display:none" onclick="installApp()">⬇ Install</button>
       <button class="logout-btn" onclick="openPassModal()">🔑 Password</button>
       <button class="logout-btn" onclick="doLogout()">Keluar</button>
