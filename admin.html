@@ -251,9 +251,6 @@ let rejectTarget=null;
 async function sbGet(t,q){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{headers:SB_H});return r.ok?r.json():[];}catch{return[];}}
 async function sbPatch(t,q,d){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{method:'PATCH',headers:{...SB_H,'Prefer':'return=representation'},body:JSON.stringify(d)});return r.ok?r.json():null;}catch{return null;}}
 
-function _oldLoginRemoved(){
-}
-
 function doLogout(){
   sessionStorage.removeItem('frs_admin');
   location.reload();
