@@ -10,11 +10,13 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="FRS Admin"/>
 <link rel="apple-touch-icon" href="logo.png"/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{--red:#C41C22;--red-dark:#9A141A;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:#F0F0F0;font-family:'Inter',sans-serif;min-height:100vh;}
+body{background:#F4F4F4;font-family:'Inter',sans-serif;min-height:100vh;}
+@keyframes metalShimmer{0%{background-position:-300% center;}100%{background-position:300% center;}}
+.logo-red{background:linear-gradient(90deg,#5A0000 0%,#C41C22 25%,#E85530 50%,#C41C22 75%,#5A0000 100%);background-size:300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:metalShimmer 3s linear 1s infinite;}
 
 /* LOGIN */
 #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
@@ -117,7 +119,7 @@ body{background:#F0F0F0;font-family:'Inter',sans-serif;min-height:100vh;}
 <!-- LOGIN SCREEN -->
 <div id="login-screen">
   <div class="login-card">
-    <div class="login-logo" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:2px"><img src="logo.png" style="height:52px;width:auto"/><span style="font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;font-style:italic;letter-spacing:1px;line-height:1"><span style="color:var(--red)">AUTO</span><span style="color:#111">CAR</span></span></div>
+    <div class="login-logo" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:2px"><img src="logo.png" style="height:52px;width:auto"/><span style="font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;font-style:italic;letter-spacing:1px;line-height:1"><span class="logo-red">AUTO</span><span style="color:#0C0C0C">CAR</span></span></div>
     <div class="login-sub">Admin Panel</div>
     <input type="password" id="pass-input" placeholder="Password admin" onkeydown="if(event.key==='Enter')doLogin()"/>
     <button class="login-btn" onclick="doLogin()">Masuk</button>
@@ -129,7 +131,7 @@ body{background:#F0F0F0;font-family:'Inter',sans-serif;min-height:100vh;}
 <div id="admin-panel">
   <div class="admin-header">
     <div>
-      <div class="admin-brand" style="display:flex;align-items:center;gap:8px"><img src="logo.png" style="height:34px;width:auto"/><div style="line-height:1"><span style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;font-style:italic;letter-spacing:1px"><span style="color:var(--red)">AUTO</span><span style="color:#111">CAR</span></span><br><small style="font-size:10px;color:#888;font-family:'Inter',sans-serif;font-weight:500;font-style:normal;letter-spacing:0.5px;text-transform:uppercase">Admin</small></div></div>
+      <div class="admin-brand" style="display:flex;align-items:center;gap:8px"><img src="logo.png" style="height:34px;width:auto"/><div style="line-height:1"><span style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;font-style:italic;letter-spacing:1px"><span class="logo-red">AUTO</span><span style="color:#0C0C0C">CAR</span></span><br><small style="font-size:10px;color:#888;font-family:'Inter',sans-serif;font-weight:500;font-style:normal;letter-spacing:0.5px;text-transform:uppercase">Admin</small></div></div>
     </div>
     <div style="display:flex;gap:8px;align-items:center">
       <button class="logout-btn" id="install-btn" style="display:none" onclick="installApp()">⬇ Install</button>
