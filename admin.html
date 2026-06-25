@@ -326,7 +326,7 @@ function renderBookings(list){
         <div class="bd-item">📱 <b>${b.no_wa}</b></div>
         <div class="bd-item">🪪 NIK: <b>${b.nik||'-'}</b></div>
         <div class="bd-item">🚘 Unit: <b>${b.unit||'-'}</b></div>
-        ${b.sopir?`<div class="bd-item">👨‍✈️ <b>${b.sopir}</b></div>`:''}
+        ${b.sopir?`<div class="bd-item">🚦 Metode: <b>${b.sopir}</b></div>`:''}
         ${b.durasi?`<div class="bd-item">⏳ <b>${b.durasi}</b></div>`:''}
         <div class="bd-item">📅 <b>${fmtDate(b.tanggal_mulai)}</b>${b.tanggal_selesai?' – '+fmtDate(b.tanggal_selesai):''}</div>
         ${b.jam?`<div class="bd-item">⏰ Jam: <b>${fmtTime(b.jam)}</b></div>`:''}

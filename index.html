@@ -976,8 +976,9 @@ async function submitSewaMobil(){
   const metode=req('sm-metode');
   const tujuan=metode==='With Driver'?req('sm-tujuan'):'';
   const catatan=req('sm-catatan');
+  const alamatVal=[tujuan,catatan].filter(Boolean).join(' | ')||'';
   if(!window.sm_ret&&nik)await sbPost('users',{nik,nama:req('sm-nama'),no_wa:req('sm-wa')},true);
-  await sbPost('bookings',{jenis:'Sewa Mobil',nik,nama:req('sm-nama'),no_wa:req('sm-wa'),unit:req('sm-unit'),durasi,metode,tujuan,catatan,tanggal_mulai:req('sm-mulai'),jam:req('sm-jam')||'',user_lama:!!window.sm_ret,status:'pending'});
+  await sbPost('bookings',{jenis:'Sewa Mobil',nik,nama:req('sm-nama'),no_wa:req('sm-wa'),unit:req('sm-unit'),sopir:metode,durasi,tanggal_mulai:req('sm-mulai'),jam:req('sm-jam')||'',alamat:alamatVal,user_lama:!!window.sm_ret,status:'pending'});
   const msg=`Halo FRS Autocar 🚗\n\n*═══ BOOKING SEWA MOBIL ═══*\n\n👤 *Nama:* ${req('sm-nama')}\n🪪 *NIK:* ${nik}\n📱 *No. WA:* ${req('sm-wa')}\n🚘 *Unit:* ${req('sm-unit')}\n⏳ *Durasi:* ${durasi}\n🚦 *Metode:* ${metode}${tujuan?'\n📍 *Tujuan:* '+tujuan:''}\n📅 *Mulai:* ${req('sm-mulai')}\n⏰ *Jam:* ${req('sm-jam')||'-'}${catatan?'\n📝 *Catatan:* '+catatan:''}\n\n${window.sm_ret?'✅ User lama — dokumen sudah tersimpan':'📎 Dokumen: KTP ✅ SIM ✅ KK ✅ Medsos ✅'}\n\nMohon konfirmasi. Terima kasih! 🙏`;
   showSuccess('sm',msg);
 }
@@ -991,8 +992,9 @@ async function submitSewaMotor(){
   const metode=req('mo-metode');
   const tujuan=metode==='With Driver'?req('mo-tujuan'):'';
   const catatan=req('mo-catatan');
+  const alamatVal=[tujuan,catatan].filter(Boolean).join(' | ')||'';
   if(!window.mo_ret&&nik)await sbPost('users',{nik,nama:req('mo-nama'),no_wa:req('mo-wa')},true);
-  await sbPost('bookings',{jenis:'Sewa Motor',nik,nama:req('mo-nama'),no_wa:req('mo-wa'),unit:req('mo-unit'),durasi,metode,tujuan,catatan,tanggal_mulai:req('mo-mulai'),jam:req('mo-jam')||'',user_lama:!!window.mo_ret,status:'pending'});
+  await sbPost('bookings',{jenis:'Sewa Motor',nik,nama:req('mo-nama'),no_wa:req('mo-wa'),unit:req('mo-unit'),sopir:metode,durasi,tanggal_mulai:req('mo-mulai'),jam:req('mo-jam')||'',alamat:alamatVal,user_lama:!!window.mo_ret,status:'pending'});
   const msg=`Halo FRS Autocar 🛵\n\n*═══ BOOKING SEWA MOTOR ═══*\n\n👤 *Nama:* ${req('mo-nama')}\n🪪 *NIK:* ${nik}\n📱 *No. WA:* ${req('mo-wa')}\n🛵 *Unit:* ${req('mo-unit')}\n⏳ *Durasi:* ${durasi}\n🚦 *Metode:* ${metode}${tujuan?'\n📍 *Tujuan:* '+tujuan:''}\n📅 *Mulai:* ${req('mo-mulai')}\n⏰ *Jam:* ${req('mo-jam')||'-'}${catatan?'\n📝 *Catatan:* '+catatan:''}\n\n${window.mo_ret?'✅ User lama — dokumen sudah tersimpan':'📎 Dokumen: KTP ✅ SIM ✅ KK ✅ Medsos ✅'}\n\nMohon konfirmasi. Terima kasih! 🙏`;
   showSuccess('mo',msg);
 }
