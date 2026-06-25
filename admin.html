@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Admin — FRS Autocar</title>
+<link rel="manifest" href="admin-manifest.json"/>
+<meta name="theme-color" content="#C41C22"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="FRS Admin"/>
+<link rel="apple-touch-icon" href="logo.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--red:#C41C22;--red-dark:#9A141A;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#F0F0F0;font-family:'Inter',sans-serif;min-height:100vh;}
+
+/* LOGIN */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+.login-card{background:#fff;border-radius:16px;padding:32px 28px;width:100%;max-width:360px;box-shadow:0 4px 24px rgba(0,0,0,0.12);text-align:center;}
+.login-logo{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;color:#111;letter-spacing:1px;margin-bottom:4px;}
+.login-logo span{color:var(--red);}
+.login-sub{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:28px;}
+.login-card input{width:100%;padding:13px 16px;border:1.5px solid #ddd;border-radius:8px;font-size:15px;outline:none;transition:border-color 0.2s;margin-bottom:12px;}
+.login-card input:focus{border-color:var(--red);}
+.login-btn{width:100%;background:var(--red);color:white;border:none;padding:14px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;transition:background 0.2s;}
+.login-btn:hover{background:var(--red-dark);}
+.login-err{color:var(--red);font-size:13px;margin-top:8px;display:none;}
+
+/* ADMIN PANEL */
+#admin-panel{display:none;min-height:100vh;}
+.admin-header{background:#fff;border-bottom:1px solid #e5e5e5;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.admin-brand{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#111;}
+.admin-brand span{color:var(--red);}
+.admin-brand small{font-size:12px;font-weight:400;color:#888;margin-left:8px;font-family:'Inter',sans-serif;}
+.logout-btn{background:none;border:1.5px solid #ddd;padding:7px 14px;border-radius:6px;font-size:13px;font-weight:600;color:#666;cursor:pointer;transition:all 0.2s;}
+.logout-btn:hover{border-color:var(--red);color:var(--red);}
+
+.admin-body{max-width:800px;margin:0 auto;padding:20px 16px;}
+
+/* TABS */
+.tab-row{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;scrollbar-width:none;}
+.tab-row::-webkit-scrollbar{display:none;}
+.tab-btn{background:#fff;border:1.5px solid #ddd;padding:8px 16px;border-radius:20px;font-size:12px;font-weight:600;color:#666;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
+.tab-btn.active{background:var(--red);border-color:var(--red);color:white;}
+.tab-btn .count{background:rgba(0,0,0,0.12);padding:1px 6px;border-radius:10px;font-size:10px;margin-left:4px;}
+.tab-btn.active .count{background:rgba(255,255,255,0.3);}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.stat-card{background:#fff;border-radius:12px;padding:14px;text-align:center;}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:#111;}
+.stat-num.red{color:var(--red);}
+.stat-num.green{color:#16a34a;}
+.stat-lbl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;}
+
+/* REFRESH */
+.refresh-btn{width:100%;background:#fff;border:1.5px solid #ddd;padding:10px;border-radius:8px;font-size:13px;font-weight:600;color:#555;cursor:pointer;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s;}
+.refresh-btn:hover{border-color:var(--red);color:var(--red);}
+
+/* BOOKING CARDS */
+.booking-card{background:#fff;border-radius:12px;padding:16px;margin-bottom:10px;border-left:3px solid #ddd;}
+.booking-card.pending{border-left-color:#f59e0b;}
+.booking-card.approved{border-left-color:#16a34a;}
+.booking-card.rejected{border-left-color:#dc2626;}
+.booking-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px;}
+.booking-name{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#111;text-transform:uppercase;}
+.booking-meta{font-size:11px;color:#888;margin-top:1px;}
+.status-badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap;flex-shrink:0;}
+.status-badge.pending{background:#fef3c7;color:#92400e;}
+.status-badge.approved{background:#dcfce7;color:#15803d;}
+.status-badge.rejected{background:#fee2e2;color:#b91c1c;}
+.booking-details{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-bottom:12px;}
+.bd-item{font-size:12px;color:#555;}
+.bd-item b{color:#111;}
+.booking-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.btn-approve{background:#16a34a;color:white;border:none;padding:9px 16px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;transition:background 0.2s;}
+.btn-approve:hover{background:#15803d;}
+.btn-reject{background:#fff;color:#dc2626;border:1.5px solid #dc2626;padding:9px 16px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all 0.2s;}
+.btn-reject:hover{background:#fee2e2;}
+.btn-wa{background:#25D366;color:white;border:none;padding:9px 16px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;transition:background 0.2s;}
+.btn-wa:hover{background:#1ebe5d;}
+.catatan-admin{font-size:11px;color:#888;margin-top:6px;font-style:italic;}
+.user-lama-tag{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;margin-left:6px;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.show{display:flex;}
+.modal{background:#fff;border-radius:14px;padding:24px;width:100%;max-width:400px;}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;text-transform:uppercase;color:#111;margin-bottom:16px;}
+.modal textarea{width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;resize:none;outline:none;margin-bottom:12px;}
+.modal textarea:focus{border-color:var(--red);}
+.modal-btns{display:flex;gap:8px;}
+.modal-btns button{flex:1;padding:12px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;text-transform:uppercase;cursor:pointer;border:none;}
+.modal-cancel{background:#f0f0f0;color:#555;}
+.modal-confirm{background:var(--red);color:white;}
+
+/* USERS TAB */
+.user-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
+.user-ava{width:40px;height:40px;border-radius:50%;background:rgba(196,28,34,0.1);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:var(--red);flex-shrink:0;}
+.user-info .name{font-weight:600;color:#111;font-size:14px;}
+.user-info .nik{font-size:11px;color:#888;font-family:monospace;margin-top:1px;}
+.user-info .wa{font-size:11px;color:#16a34a;margin-top:1px;}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:40px 20px;color:#888;}
+.empty-state div{font-size:40px;margin-bottom:12px;}
+.empty-state p{font-size:14px;}
+
+/* LOADING */
+.loading{text-align:center;padding:40px;color:#888;font-size:14px;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:2px"><img src="logo.png" style="height:52px;width:auto"/><span style="font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:900;font-style:italic;letter-spacing:1px;line-height:1"><span style="color:var(--red)">AUTO</span><span style="color:#111">CAR</span></span></div>
+    <div class="login-sub">Admin Panel</div>
+    <input type="password" id="pass-input" placeholder="Password admin" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">Masuk</button>
+    <div class="login-err" id="login-err">Password salah!</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <div class="admin-header">
+    <div>
+      <div class="admin-brand" style="display:flex;align-items:center;gap:8px"><img src="logo.png" style="height:34px;width:auto"/><div style="line-height:1"><span style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;font-style:italic;letter-spacing:1px"><span style="color:var(--red)">AUTO</span><span style="color:#111">CAR</span></span><br><small style="font-size:10px;color:#888;font-family:'Inter',sans-serif;font-weight:500;font-style:normal;letter-spacing:0.5px;text-transform:uppercase">Admin</small></div></div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="logout-btn" id="install-btn" style="display:none" onclick="installApp()">⬇ Install</button>
+      <button class="logout-btn" onclick="openPassModal()">🔑 Password</button>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num red" id="stat-pending">-</div><div class="stat-lbl">Menunggu</div></div>
+      <div class="stat-card"><div class="stat-num green" id="stat-approved">-</div><div class="stat-lbl">Disetujui</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-total">-</div><div class="stat-lbl">Total Booking</div></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="setTab('all',this)">Semua <span class="count" id="cnt-all">0</span></button>
+      <button class="tab-btn" onclick="setTab('pending',this)">Menunggu <span class="count" id="cnt-pending">0</span></button>
+      <button class="tab-btn" onclick="setTab('approved',this)">Disetujui <span class="count" id="cnt-approved">0</span></button>
+      <button class="tab-btn" onclick="setTab('rejected',this)">Ditolak <span class="count" id="cnt-rejected">0</span></button>
+      <button class="tab-btn" onclick="setTab('users',this)">Data User <span class="count" id="cnt-users">0</span></button>
+    </div>
+
+    <!-- Notif Banner -->
+    <div id="notif-banner" style="display:none;background:#fff;border:1.5px solid #fde68a;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:none;align-items:center;gap:10px;font-size:13px;color:#92400e;">
+      <span style="font-size:20px">🔔</span>
+      <div style="flex:1"><b>Aktifkan Notifikasi</b><br><span style="font-size:11px">Agar admin dapat notifikasi saat ada booking baru, meskipun app ditutup.</span></div>
+      <button onclick="subscribePush()" style="background:var(--red);color:white;border:none;padding:8px 14px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Aktifkan</button>
+    </div>
+
+    <!-- Refresh -->
+    <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
+
+    <!-- Booking list -->
+    <div id="booking-list"><div class="loading">Memuat data...</div></div>
+
+    <!-- Users list -->
+    <div id="users-list" style="display:none"><div class="loading">Memuat data...</div></div>
+  </div>
+</div>
+
+<!-- PASSWORD MODAL -->
+<div class="modal-overlay" id="pass-modal">
+  <div class="modal">
+    <div class="modal-title">🔑 Ganti Password</div>
+    <p style="font-size:13px;color:#666;margin-bottom:14px;">Password tersimpan di perangkat ini saja.</p>
+    <label style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:5px;">Password Lama</label>
+    <input type="password" id="pass-old" placeholder="Password saat ini" style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:10px;outline:none;"/>
+    <label style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:5px;">Password Baru</label>
+    <input type="password" id="pass-new" placeholder="Minimal 6 karakter" style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:10px;outline:none;"/>
+    <label style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:5px;">Konfirmasi Password Baru</label>
+    <input type="password" id="pass-confirm" placeholder="Ulangi password baru" style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:12px;outline:none;"/>
+    <div id="pass-err" style="color:#dc2626;font-size:12px;margin-bottom:10px;display:none;"></div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closePassModal()">Batal</button>
+      <button class="modal-confirm" onclick="savePass()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- REJECT MODAL -->
+<div class="modal-overlay" id="reject-modal">
+  <div class="modal">
+    <div class="modal-title">✕ Tolak Booking</div>
+    <p style="font-size:13px;color:#666;margin-bottom:12px;">Pilih alasan penolakan — akan dikirim ke customer via WhatsApp.</p>
+    <select id="reject-reason-select" style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;outline:none;margin-bottom:10px;appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;" onchange="toggleCustomReason(this)">
+      <option value="">-- Pilih alasan --</option>
+      <option value="Unit tidak tersedia di tanggal yang dipilih">🚗 Unit tidak tersedia di tanggal yang dipilih</option>
+      <option value="Stok unit sedang penuh, silakan pilih tanggal lain">📅 Stok unit sedang penuh</option>
+      <option value="Pemesanan terlalu mendadak, minimal booking H-1">⏰ Pemesanan terlalu mendadak (min. H-1)</option>
+      <option value="Dokumen yang dikirim tidak lengkap atau tidak jelas">📄 Dokumen tidak lengkap / tidak jelas</option>
+      <option value="Lokasi penjemputan di luar area layanan kami">📍 Lokasi di luar area layanan</option>
+      <option value="Mohon maaf, saat ini kami sedang tidak beroperasi">🔒 Sedang tidak beroperasi</option>
+      <option value="custom">✏️ Tulis alasan sendiri...</option>
+    </select>
+    <textarea id="reject-reason-custom" rows="2" placeholder="Tulis alasan..." style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;resize:none;outline:none;margin-bottom:10px;display:none;"></textarea>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeRejectModal()">Batal</button>
+      <button class="modal-confirm" onclick="confirmReject()">Tolak Booking</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SB_URL='https://gexhkzqdsrhetdlymlug.supabase.co';
+const SB_KEY='sb_publishable_mv_5MeKiLLeErdeGBzAOZw_feYpEWw1';
+const SB_H={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
+const WA_ADMIN='6285727774499';
+const DEFAULT_PASS='frs2024';
+function getPass(){return localStorage.getItem('frs_admin_pass')||DEFAULT_PASS;}
+
+let deferredInstall=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;document.getElementById('install-btn').style.display='block';});
+function installApp(){if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.then(()=>{deferredInstall=null;document.getElementById('install-btn').style.display='none';});}}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/admin-sw.js',{scope:'/admin.html'}).catch(()=>{});}
+
+function openPassModal(){document.getElementById('pass-old').value='';document.getElementById('pass-new').value='';document.getElementById('pass-confirm').value='';document.getElementById('pass-err').style.display='none';document.getElementById('pass-modal').classList.add('show');}
+function closePassModal(){document.getElementById('pass-modal').classList.remove('show');}
+function savePass(){
+  const old=document.getElementById('pass-old').value;
+  const nw=document.getElementById('pass-new').value;
+  const cf=document.getElementById('pass-confirm').value;
+  const err=document.getElementById('pass-err');
+  if(old!==getPass()){err.textContent='Password lama salah!';err.style.display='block';return;}
+  if(nw.length<6){err.textContent='Password baru minimal 6 karakter!';err.style.display='block';return;}
+  if(nw!==cf){err.textContent='Konfirmasi password tidak cocok!';err.style.display='block';return;}
+  localStorage.setItem('frs_admin_pass',nw);
+  closePassModal();
+  alert('✅ Password berhasil diganti!');
+}
+
+let allBookings=[];
+let allUsers=[];
+let currentTab='all';
+let rejectTarget=null;
+
+async function sbGet(t,q){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{headers:SB_H});return r.ok?r.json():[];}catch{return[];}}
+async function sbPatch(t,q,d){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{method:'PATCH',headers:{...SB_H,'Prefer':'return=representation'},body:JSON.stringify(d)});return r.ok?r.json():null;}catch{return null;}}
+
+function _oldLoginRemoved(){
+}
+
+function doLogout(){
+  sessionStorage.removeItem('frs_admin');
+  location.reload();
+}
+
+async function loadData(){
+  document.getElementById('booking-list').innerHTML='<div class="loading">Memuat data...</div>';
+  const [bookings,users]=await Promise.all([
+    sbGet('bookings','?select=*&order=created_at.desc'),
+    sbGet('users','?select=*&order=created_at.desc')
+  ]);
+  allBookings=bookings||[];
+  allUsers=users||[];
+  updateStats();
+  renderTab(currentTab);
+}
+
+function updateStats(){
+  const pending=allBookings.filter(b=>b.status==='pending').length;
+  const approved=allBookings.filter(b=>b.status==='approved').length;
+  document.getElementById('stat-pending').textContent=pending;
+  document.getElementById('stat-approved').textContent=approved;
+  document.getElementById('stat-total').textContent=allBookings.length;
+  document.getElementById('cnt-all').textContent=allBookings.length;
+  document.getElementById('cnt-pending').textContent=pending;
+  document.getElementById('cnt-approved').textContent=approved;
+  document.getElementById('cnt-rejected').textContent=allBookings.filter(b=>b.status==='rejected').length;
+  document.getElementById('cnt-users').textContent=allUsers.length;
+}
+
+function setTab(tab,btn){
+  currentTab=tab;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTab(tab);
+}
+
+function renderTab(tab){
+  if(tab==='users'){
+    document.getElementById('booking-list').style.display='none';
+    document.getElementById('users-list').style.display='block';
+    renderUsers();
+  }else{
+    document.getElementById('booking-list').style.display='block';
+    document.getElementById('users-list').style.display='none';
+    const filtered=tab==='all'?allBookings:allBookings.filter(b=>b.status===tab);
+    renderBookings(filtered);
+  }
+}
+
+function fmtDate(d){if(!d)return'-';const parts=d.split('-');return parts.length===3?parts[2]+'/'+parts[1]+'/'+parts[0]:d;}
+function fmtTime(t){return t?t.substring(0,5):'-';}
+
+function renderBookings(list){
+  const el=document.getElementById('booking-list');
+  if(!list||!list.length){
+    el.innerHTML='<div class="empty-state"><div>📋</div><p>Belum ada booking</p></div>';
+    return;
+  }
+  el.innerHTML=list.map(b=>`
+    <div class="booking-card ${b.status}" id="card-${b.id}">
+      <div class="booking-top">
+        <div>
+          <div class="booking-name">${b.nama}${b.user_lama?'<span class="user-lama-tag">User Lama</span>':''}</div>
+          <div class="booking-meta">${b.jenis} · ${fmtDate(b.created_at?.split('T')[0])}</div>
+        </div>
+        <span class="status-badge ${b.status}">${b.status==='pending'?'Menunggu':b.status==='approved'?'Disetujui':'Ditolak'}</span>
+      </div>
+      <div class="booking-details">
+        <div class="bd-item">📱 <b>${b.no_wa}</b></div>
+        <div class="bd-item">🪪 NIK: <b>${b.nik||'-'}</b></div>
+        <div class="bd-item">🚘 Unit: <b>${b.unit||'-'}</b></div>
+        ${b.sopir?`<div class="bd-item">👨‍✈️ <b>${b.sopir}</b></div>`:''}
+        ${b.durasi?`<div class="bd-item">⏳ <b>${b.durasi}</b></div>`:''}
+        <div class="bd-item">📅 <b>${fmtDate(b.tanggal_mulai)}</b>${b.tanggal_selesai?' – '+fmtDate(b.tanggal_selesai):''}</div>
+        ${b.jam?`<div class="bd-item">⏰ Jam: <b>${fmtTime(b.jam)}</b></div>`:''}
+        ${b.alamat?`<div class="bd-item" style="grid-column:1/-1">📍 <b>${b.alamat}</b></div>`:''}
+      </div>
+      ${b.catatan_admin?`<div class="catatan-admin">📝 ${b.catatan_admin}</div>`:''}
+      <div class="booking-actions">
+        ${b.status==='pending'?`
+          <button class="btn-approve" onclick="approveBooking('${b.id}','${b.nama}','${b.no_wa}','${b.jenis}','${b.unit||''}','${b.tanggal_mulai||''}')">✅ Setujui</button>
+          <button class="btn-reject" onclick="openRejectModal('${b.id}','${b.nama}','${b.no_wa}')">✕ Tolak</button>
+        `:''}
+        <button class="btn-wa" onclick="waContact('${b.no_wa}')">💬 WA</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderUsers(){
+  const el=document.getElementById('users-list');
+  if(!allUsers||!allUsers.length){
+    el.innerHTML='<div class="empty-state"><div>👤</div><p>Belum ada data user</p></div>';
+    return;
+  }
+  el.innerHTML=allUsers.map(u=>`
+    <div class="user-card">
+      <div class="user-ava">${u.nama.charAt(0).toUpperCase()}</div>
+      <div class="user-info">
+        <div class="name">${u.nama}</div>
+        <div class="nik">NIK: ${u.nik}</div>
+        <div class="wa">📱 ${u.no_wa}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function approveBooking(id,nama,wa,jenis,unit,tgl){
+  await sbPatch('bookings','?id=eq.'+id,{status:'approved'});
+  const idx=allBookings.findIndex(b=>b.id===id);
+  if(idx>=0)allBookings[idx].status='approved';
+  updateStats();
+  renderTab(currentTab);
+  const msg=`Halo ${nama}! 👋\n\n✅ *Booking Anda DISETUJUI!*\n\n🚘 ${jenis}: ${unit||'-'}\n📅 Tanggal: ${fmtDate(tgl)}\n\nSilakan transfer dp sesuai kesepakatan. Terima kasih sudah memilih *FRS Autocar*! 🙏`;
+  window.open('https://wa.me/62'+wa.replace(/^0/,'').replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+function toggleCustomReason(sel){
+  const custom=document.getElementById('reject-reason-custom');
+  custom.style.display=sel.value==='custom'?'block':'none';
+}
+function openRejectModal(id,nama,wa){
+  rejectTarget={id,nama,wa};
+  document.getElementById('reject-reason-select').value='';
+  document.getElementById('reject-reason-custom').value='';
+  document.getElementById('reject-reason-custom').style.display='none';
+  document.getElementById('reject-modal').classList.add('show');
+}
+function closeRejectModal(){
+  document.getElementById('reject-modal').classList.remove('show');
+  rejectTarget=null;
+}
+async function confirmReject(){
+  if(!rejectTarget)return;
+  const sel=document.getElementById('reject-reason-select').value;
+  if(!sel){alert('Pilih alasan penolakan dulu!');return;}
+  const reason=sel==='custom'?(document.getElementById('reject-reason-custom').value.trim()||'Unit tidak tersedia'):sel;
+  await sbPatch('bookings','?id=eq.'+rejectTarget.id,{status:'rejected',catatan_admin:reason});
+  const idx=allBookings.findIndex(b=>b.id===rejectTarget.id);
+  if(idx>=0){allBookings[idx].status='rejected';allBookings[idx].catatan_admin=reason;}
+  closeRejectModal();
+  updateStats();
+  renderTab(currentTab);
+  const msg=`Halo ${rejectTarget.nama}, 👋\n\nMohon maaf, booking Anda *belum dapat dikonfirmasi*.\n\n📝 *Keterangan:* ${reason}\n\nSilakan hubungi kami untuk info lebih lanjut atau pilih tanggal lain. Terima kasih! 🙏`;
+  window.open('https://wa.me/62'+rejectTarget.wa.replace(/^0/,'').replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+function waContact(wa){
+  window.open('https://wa.me/62'+wa.replace(/^0/,'').replace(/[^0-9]/g,''),'_blank');
+}
+
+/* ── PUSH NOTIFICATION ── */
+const VAPID_PUBLIC='BDvbHb24PHGPoKACdSI4E5oESYZVCRSrvoYsYv7l8-q1oSHKDC6wu3EwIdfYXwW46tvgKiFo4ImuuRkr2go473I';
+
+function urlB64ToUint8(b64){
+  const pad='='.repeat((4-b64.length%4)%4);
+  const base64=(b64+pad).replace(/-/g,'+').replace(/_/g,'/');
+  const raw=atob(base64);
+  return Uint8Array.from([...raw].map(c=>c.charCodeAt(0)));
+}
+
+async function subscribePush(){
+  try{
+    const perm=await Notification.requestPermission();
+    if(perm!=='granted'){alert('Izin notifikasi ditolak. Aktifkan di pengaturan browser/HP.');return;}
+    const reg=await navigator.serviceWorker.ready;
+    const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:urlB64ToUint8(VAPID_PUBLIC)});
+    const device=navigator.userAgent.includes('Android')?'Android':navigator.userAgent.includes('iPhone')?'iPhone':'Desktop';
+    await sbPost('push_subscriptions',{subscription:sub.toJSON(),device_name:device});
+    document.getElementById('notif-banner').style.display='none';
+    localStorage.setItem('frs_push_ok','1');
+    alert('✅ Notifikasi berhasil diaktifkan! Anda akan mendapat notifikasi setiap ada booking baru.');
+  }catch(e){alert('Gagal aktifkan notifikasi: '+e.message);}
+}
+
+function checkNotifStatus(){
+  const banner=document.getElementById('notif-banner');
+  if(!('Notification' in window)||!('serviceWorker' in navigator)){banner.style.display='none';return;}
+  if(Notification.permission==='granted'&&localStorage.getItem('frs_push_ok')==='1'){banner.style.display='none';}
+  else{banner.style.display='flex';}
+}
+
+function playSound(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    [0,150,300].forEach((t,i)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.frequency.value=i===0?880:i===1?1100:1320;
+      g.gain.setValueAtTime(0.3,ctx.currentTime+t/1000);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+t/1000+0.2);
+      o.start(ctx.currentTime+t/1000);o.stop(ctx.currentTime+t/1000+0.25);
+    });
+  }catch(e){}
+}
+
+function showNewBookingAlert(booking){
+  playSound();
+  // In-app toast
+  const t=document.querySelector('.toast')||document.createElement('div');
+  t.className='toast show';
+  t.innerHTML=`🔔 <b>Booking Baru!</b> ${booking.nama} — ${booking.jenis}`;
+  document.body.appendChild(t);
+  setTimeout(()=>t.classList.remove('show'),5000);
+  // Browser notification (works even in background tab)
+  if(Notification.permission==='granted'){
+    new Notification('🚗 Booking Baru Masuk!',{body:`${booking.nama} — ${booking.jenis}`,icon:'/logo.png',badge:'/logo.png',requireInteraction:true});
+  }
+}
+
+/* ── POLLING (cek booking baru tiap 30 detik) ── */
+let lastPollTime=null;
+async function pollBookings(){
+  if(!lastPollTime){lastPollTime=new Date().toISOString();return;}
+  const fresh=await sbGet('bookings','?created_at=gt.'+lastPollTime+'&select=*&order=created_at.desc&limit=5');
+  if(fresh&&fresh.length>0){
+    lastPollTime=new Date().toISOString();
+    await loadData();
+    fresh.forEach(b=>showNewBookingAlert(b));
+  }
+}
+
+// Auto-login check
+window.onload=()=>{
+  if(sessionStorage.getItem('frs_admin')==='1'){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-panel').style.display='block';
+    loadData();
+    checkNotifStatus();
+    lastPollTime=new Date().toISOString();
+    setInterval(pollBookings,30000);
+  }
+};
+
+function doLogin(){
+  const p=document.getElementById('pass-input').value;
+  if(p===getPass()){
+    sessionStorage.setItem('frs_admin','1');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-panel').style.display='block';
+    loadData();
+    checkNotifStatus();
+    lastPollTime=new Date().toISOString();
+    setInterval(pollBookings,30000);
+  }else{
+    document.getElementById('login-err').style.display='block';
+    document.getElementById('pass-input').value='';
+  }
+}
+</script>
+</body>
+</html>

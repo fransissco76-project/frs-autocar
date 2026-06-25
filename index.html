@@ -157,14 +157,13 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
 .booking-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;text-transform:uppercase;color:#111;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 .booking-title::before{content:'';width:4px;height:18px;background:var(--red);border-radius:2px;display:block;}
 .form-grid{display:grid;gap:12px;}
-@media(min-width:520px){.form-grid{grid-template-columns:1fr 1fr;}}
 .form-full{grid-column:1/-1;}
-.form-group{display:flex;flex-direction:column;gap:5px;}
-.form-group label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);}
-.form-group input,.form-group select,.form-group textarea{background:rgba(0,0,0,0.04);border:1.5px solid rgba(0,0,0,0.12);color:#111;padding:11px 14px;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;-webkit-appearance:none;appearance:none;}
-.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(0,0,0,0.28);}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(220,31,38,0.5);background:rgba(220,31,38,0.02);}
-.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;color:#374151;}
+.form-group input,.form-group select,.form-group textarea{background:#fff;border:1.5px solid #e5e7eb;color:#111827;padding:12px 16px;border-radius:12px;font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s,box-shadow 0.2s;-webkit-appearance:none;appearance:none;width:100%;}
+.form-group input::placeholder,.form-group textarea::placeholder{color:#9ca3af;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(196,28,34,0.55);box-shadow:0 0 0 3px rgba(196,28,34,0.08);background:#fff;}
+.form-group select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239ca3af' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
 .upload-label-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:8px;}
 .upload-notice{background:rgba(220,31,38,0.06);border:1px solid rgba(220,31,38,0.18);border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:12px;color:rgba(180,20,20,0.9);line-height:1.5;}
 .upload-grid{display:grid;gap:8px;}
@@ -181,8 +180,42 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
 .pay-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
 .pay-btn{background:rgba(0,0,0,0.04);border:1.5px solid rgba(0,0,0,0.12);color:rgba(0,0,0,0.54);padding:8px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;}
 .pay-btn:hover,.pay-btn.sel{border-color:var(--red);color:var(--red);background:rgba(220,31,38,0.06);}
-.submit-btn{width:100%;background:var(--red);color:white;border:none;padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;border-radius:8px;cursor:pointer;transition:background 0.2s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.submit-btn{width:100%;background:var(--red);color:white;border:none;padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;border-radius:14px;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(196,28,34,0.25);}
 .submit-btn:hover{background:var(--red-dark);}
+/* NIK Recognition */
+.nik-banner{margin-top:7px;padding:10px 12px;border-radius:8px;font-size:12.5px;font-weight:500;display:none;align-items:center;gap:8px;line-height:1.4;}
+.nik-banner.checking,.nik-banner.found,.nik-banner.newuser{display:flex;}
+.nik-banner.checking{background:#f0f9ff;color:#0369a1;border:1px solid #bae6fd;}
+.nik-banner.found{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;}
+.nik-banner.newuser{background:#fffbeb;color:#92400e;border:1px solid #fde68a;}
+.nik-banner a{color:inherit;margin-left:auto;font-size:11px;text-decoration:underline;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+/* Form 2-Step Redesign */
+.form-card{background:#fff;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.04);border:1px solid #f3f4f6;}
+.form-card-header{display:flex;align-items:center;gap:8px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;text-transform:uppercase;color:#111827;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #f3f4f6;}
+.form-card-header::before{content:'';width:4px;height:18px;background:var(--red);border-radius:3px;display:block;flex-shrink:0;}
+.step-bar{display:flex;align-items:flex-start;margin-bottom:16px;}
+.step-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;background:#e5e5e5;color:#999;flex-shrink:0;transition:all 0.3s;}
+.step-dot.active{background:var(--red);color:white;}
+.step-dot.done{background:#16a34a;color:white;}
+.step-label{font-size:9px;color:#999;text-transform:uppercase;letter-spacing:0.5px;}
+.step-line{flex:1;height:2px;background:#e5e5e5;margin:13px 6px 0;}
+.toggle-group{display:flex;flex-direction:column;gap:8px;}
+.toggle-btn{width:100%;padding:11px 14px;border:1.5px solid rgba(0,0,0,0.12);border-radius:10px;background:#fff;font-size:13px;font-weight:500;color:#555;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;gap:10px;}
+.toggle-btn.sel{border-color:var(--red);background:rgba(196,28,34,0.04);color:var(--red);font-weight:600;}
+.toggle-dot{width:8px;height:8px;border-radius:50%;border:2px solid currentColor;flex-shrink:0;transition:all 0.2s;}
+.toggle-btn.sel .toggle-dot{background:var(--red);}
+.durasi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.durasi-btn{padding:10px 8px;border:1.5px solid rgba(0,0,0,0.12);border-radius:10px;background:#fff;font-size:13px;font-weight:500;color:#555;cursor:pointer;text-align:center;transition:all 0.2s;}
+.durasi-btn.sel{border-color:var(--red);background:rgba(196,28,34,0.04);color:var(--red);font-weight:600;}
+.dok-info{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;gap:10px;align-items:flex-start;font-size:12px;color:#1d4ed8;line-height:1.5;}
+.dok-info b{display:block;margin-bottom:2px;}
+.booking-success{text-align:center;padding:20px 8px 8px;}
+.success-icon{width:68px;height:68px;border-radius:50%;background:#f0fdf4;border:2px solid #bbf7d0;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 14px;}
+.success-title{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;text-transform:uppercase;color:#111;margin-bottom:6px;}
+.success-sub{font-size:13px;color:#666;margin-bottom:20px;line-height:1.5;}
+.btn-ghost{width:100%;margin-top:8px;background:transparent;border:1.5px solid rgba(0,0,0,0.15);padding:13px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;cursor:pointer;color:#555;}
+.btn-back{background:#f0f0f0;color:#555;border:none;padding:14px 16px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;cursor:pointer;flex-shrink:0;}
 
 /* S&K sheet */
 .sk-accordion{display:grid;gap:8px;}
@@ -406,53 +439,100 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
 
     <!-- FORM MOBIL -->
     <div class="booking-form" id="form-mobil">
-      <div class="form-grid">
-        <div class="form-group"><label>Nama Lengkap *</label><input type="text" id="sm-nama" placeholder="Nama sesuai KTP"/></div>
-        <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="sm-wa" placeholder="08xxxxxxxxxx"/></div>
-        <div class="form-group"><label>Pilih Unit *</label><select id="sm-unit"><option value="">-- Pilih Kendaraan --</option><option>Daihatsu Ayla MT</option><option>Toyota Agya AT</option><option>Honda HR-V</option><option>Toyota Veloz AT</option><option>Mitsubishi Xpander</option><option>Innova Zenix Hybrid</option><option>Mitsubishi Xforce</option><option>Toyota Fortuner</option><option>Pajero Sport</option><option>Lainnya (tanyakan admin)</option></select></div>
-        <div class="form-group"><label>Dengan Sopir?</label><select id="sm-sopir"><option value="Tanpa Sopir">Tanpa Sopir</option><option value="Dengan Sopir">Dengan Sopir</option></select></div>
-        <div class="form-group"><label>Tanggal Mulai *</label><input type="date" id="sm-mulai"/></div>
-        <div class="form-group"><label>Tanggal Selesai *</label><input type="date" id="sm-selesai"/></div>
-        <div class="form-group"><label>Jam Pengambilan</label><input type="time" id="sm-jam"/></div>
-        <div class="form-group"><label>Alamat Penjemputan</label><input type="text" id="sm-alamat" placeholder="Alamat lengkap"/></div>
-        <div class="form-full">
-          <div class="upload-label-title">Verifikasi Dokumen (Wajib)</div>
-          <div class="upload-notice">⚠️ Wajib upload: Foto KTP, SIM, KK, dan Screenshot Media Sosial aktif demi keamanan bersama.</div>
+      <div class="step-bar"><div class="step-wrap"><div class="step-dot active" id="sm-sd1">1</div><div class="step-label">Detail</div></div><div class="step-line"></div><div class="step-wrap"><div class="step-dot" id="sm-sd2">2</div><div class="step-label">Dokumen</div></div><div class="step-line"></div><div class="step-wrap"><div class="step-dot" id="sm-sd3">✓</div><div class="step-label">Selesai</div></div></div>
+      <!-- STEP 1 -->
+      <div id="sm-s1">
+        <div class="form-card">
+          <div class="form-card-header">Data Pemesan</div>
+          <div class="form-grid">
+            <div class="form-full"><div class="form-group"><label>NIK (No. KTP) *</label><input type="text" id="sm-nik" placeholder="16 digit NIK" maxlength="16" inputmode="numeric" onblur="checkNIK('sm')"/><div class="nik-banner" id="sm-nik-banner"></div></div></div>
+            <div class="form-group"><label>Nama Lengkap *</label><input type="text" id="sm-nama" placeholder="Nama sesuai KTP"/></div>
+            <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="sm-wa" placeholder="08xxxxxxxxxx"/></div>
+          </div>
+        </div>
+        <div class="form-card">
+          <div class="form-card-header">Detail Sewa</div>
+          <div class="form-grid">
+            <div class="form-full"><div class="form-group"><label>Pilih Unit *</label><select id="sm-unit"><option value="">-- Pilih Kendaraan --</option><optgroup label="City Car"><option>Agya MT</option><option>Brio MT</option><option>Brio AT</option><option>Raize AT</option><option>City Hatchback AT</option><option>Yaris E AT</option><option>Yaris TRD AT</option></optgroup><optgroup label="SUV / MPV"><option>HR-V SE AT</option><option>Avanza MT</option><option>Avanza AT</option><option>BRV N7X AT</option><option>BRV Prestige AT</option><option>Rush MT</option><option>Rush AT</option><option>Terios MT</option><option>Terios AT</option><option>Veloz AT</option><option>Xpander AT</option><option>Xforce AT</option><option>Innova Reborn Bensin</option><option>Innova Reborn Diesel</option><option>Innova Zenix Hybrid</option><option>Pajero Sport</option></optgroup><optgroup label="Pickup / Niaga"><option>New Carry Pickup</option><option>Carry Pickup</option><option>Granmax Pickup</option><option>Granmax Pickup AC PS</option><option>Calya MT</option><option>Calya AT</option><option>Sigra MT</option><option>Sigra AT</option></optgroup><option>Lainnya (tanyakan admin)</option></select></div></div>
+            <div class="form-full"><div class="form-group"><label>Tanggal Mulai *</label><input type="date" id="sm-mulai" style="width:100%"/></div></div>
+            <div class="form-full"><div class="form-group"><label>Tanggal Selesai *</label><input type="date" id="sm-selesai" style="width:100%"/></div></div>
+            <div class="form-full"><div class="form-group"><label>Jam Pengambilan</label><input type="time" id="sm-jam" style="width:100%"/></div></div>
+            <div class="form-full"><div class="form-group"><label>Alamat Penjemputan</label><input type="text" id="sm-alamat" placeholder="Alamat lengkap"/></div></div>
+            <div class="form-full"><div class="form-group"><label>Penggunaan Sopir</label><div class="toggle-group"><button type="button" class="toggle-btn sel" onclick="selToggle('sm-sopir',this,'Tanpa Sopir')"><span class="toggle-dot"></span>Tanpa Sopir</button><button type="button" class="toggle-btn" onclick="selToggle('sm-sopir',this,'Dengan Sopir')"><span class="toggle-dot"></span>Dengan Sopir</button></div><input type="hidden" id="sm-sopir" value="Tanpa Sopir"/></div></div>
+          </div>
+        </div>
+        <div class="form-card">
+          <div class="form-card-header">Pembayaran</div>
+          <div class="pay-row"><div class="pay-btn sel" onclick="selPay(this)">🏦 Transfer BCA — 0552280944 a.n. Faris Wahyu</div></div>
+        </div>
+        <button class="submit-btn" type="button" onclick="smNext()">Lanjut →</button>
+      </div>
+      <!-- STEP 2 -->
+      <div id="sm-s2" style="display:none">
+        <div class="dok-info"><span style="font-size:20px;flex-shrink:0">🆕</span><div><b>Pelanggan Baru</b>Untuk keamanan, upload dokumen diperlukan untuk penyewaan pertama. Data hanya untuk keperluan administrasi.</div></div>
+        <div class="form-card">
+          <div class="form-card-header">Upload Dokumen</div>
           <div class="upload-grid">
             <label class="upload-zone" id="zone-sm-ktp" onclick="triggerUpload('up-sm-ktp','zone-sm-ktp','lbl-sm-ktp')"><div class="upload-icon">🪪</div><div class="upload-text"><b>Foto KTP *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-sm-ktp"></div></div><input type="file" id="up-sm-ktp" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-ktp','lbl-sm-ktp')"/></label>
             <label class="upload-zone" id="zone-sm-sim" onclick="triggerUpload('up-sm-sim','zone-sm-sim','lbl-sm-sim')"><div class="upload-icon">🚘</div><div class="upload-text"><b>Foto SIM *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-sm-sim"></div></div><input type="file" id="up-sm-sim" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-sim','lbl-sm-sim')"/></label>
             <label class="upload-zone" id="zone-sm-kk" onclick="triggerUpload('up-sm-kk','zone-sm-kk','lbl-sm-kk')"><div class="upload-icon">📄</div><div class="upload-text"><b>Foto KK *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-sm-kk"></div></div><input type="file" id="up-sm-kk" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-kk','lbl-sm-kk')"/></label>
-            <label class="upload-zone" id="zone-sm-medsos" onclick="triggerUpload('up-sm-medsos','zone-sm-medsos','lbl-sm-medsos')"><div class="upload-icon">📸</div><div class="upload-text"><b>Screenshot Media Sosial *</b><small>Instagram / Facebook / TikTok aktif</small><div class="upload-status" id="lbl-sm-medsos"></div></div><input type="file" id="up-sm-medsos" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-medsos','lbl-sm-medsos')"/></label>
+            <label class="upload-zone" id="zone-sm-medsos" onclick="triggerUpload('up-sm-medsos','zone-sm-medsos','lbl-sm-medsos')"><div class="upload-icon">📸</div><div class="upload-text"><b>Screenshot Medsos *</b><small>Instagram / Facebook / TikTok</small><div class="upload-status" id="lbl-sm-medsos"></div></div><input type="file" id="up-sm-medsos" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-medsos','lbl-sm-medsos')"/></label>
           </div>
         </div>
-        <div class="form-full">
-          <div class="upload-label-title" style="margin-bottom:6px;">Metode Pembayaran</div>
-          <div class="pay-row"><div class="pay-btn sel" onclick="selPay(this)">🏦 Transfer BCA — 0552280944 a.n. Faris Wahyu</div></div>
-        </div>
-        <div class="form-full"><button class="submit-btn" onclick="submitSewaMobil()">📲 Booking via WhatsApp</button></div>
+        <div style="display:flex;gap:8px"><button class="btn-back" type="button" onclick="smBack()">← Kembali</button><button class="submit-btn" type="button" style="flex:1" onclick="submitSewaMobil()">📲 Kirim Booking</button></div>
+      </div>
+      <!-- STEP 3 -->
+      <div id="sm-s3" style="display:none">
+        <div class="booking-success"><div class="success-icon">✅</div><div class="success-title">Booking Terkirim!</div><div class="success-sub">Data tersimpan di sistem. Tap tombol di bawah untuk konfirmasi via WhatsApp agar Admin dapat memproses booking Anda.</div><button class="submit-btn" id="sm-wa-btn" type="button">💬 Konfirmasi via WhatsApp</button><button type="button" class="btn-ghost" onclick="closeSheet();smReset()">Tutup</button></div>
       </div>
     </div>
 
     <!-- FORM MOTOR -->
     <div class="booking-form" id="form-motor">
-      <div class="form-grid">
-        <div class="form-group"><label>Nama Lengkap *</label><input type="text" id="mo-nama" placeholder="Nama sesuai KTP"/></div>
-        <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="mo-wa" placeholder="08xxxxxxxxxx"/></div>
-        <div class="form-group"><label>Pilih Unit *</label><select id="mo-unit"><option value="">-- Pilih Motor --</option><option>Honda Beat</option><option>Honda PCX 160</option><option>Yamaha NMAX</option><option>Honda Scoopy</option><option>Lainnya</option></select></div>
-        <div class="form-group"><label>Durasi Sewa</label><select id="mo-durasi"><option>1 Hari</option><option>2 Hari</option><option>3 Hari</option><option>1 Minggu</option><option>1 Bulan</option></select></div>
-        <div class="form-group"><label>Tanggal Mulai *</label><input type="date" id="mo-mulai"/></div>
-        <div class="form-group"><label>Jam Pengambilan</label><input type="time" id="mo-jam"/></div>
-        <div class="form-full">
-          <div class="upload-label-title">Verifikasi Dokumen (Wajib)</div>
-          <div class="upload-notice">⚠️ Wajib upload: Foto KTP, SIM, KK, dan Screenshot Media Sosial aktif.</div>
+      <div class="step-bar"><div class="step-wrap"><div class="step-dot active" id="mo-sd1">1</div><div class="step-label">Detail</div></div><div class="step-line"></div><div class="step-wrap"><div class="step-dot" id="mo-sd2">2</div><div class="step-label">Dokumen</div></div><div class="step-line"></div><div class="step-wrap"><div class="step-dot" id="mo-sd3">✓</div><div class="step-label">Selesai</div></div></div>
+      <!-- STEP 1 -->
+      <div id="mo-s1">
+        <div class="form-card">
+          <div class="form-card-header">Data Pemesan</div>
+          <div class="form-grid">
+            <div class="form-full"><div class="form-group"><label>NIK (No. KTP) *</label><input type="text" id="mo-nik" placeholder="16 digit NIK" maxlength="16" inputmode="numeric" onblur="checkNIK('mo')"/><div class="nik-banner" id="mo-nik-banner"></div></div></div>
+            <div class="form-group"><label>Nama Lengkap *</label><input type="text" id="mo-nama" placeholder="Nama sesuai KTP"/></div>
+            <div class="form-group"><label>No. WhatsApp *</label><input type="tel" id="mo-wa" placeholder="08xxxxxxxxxx"/></div>
+          </div>
+        </div>
+        <div class="form-card">
+          <div class="form-card-header">Detail Sewa</div>
+          <div class="form-grid">
+            <div class="form-full"><div class="form-group"><label>Pilih Unit *</label><select id="mo-unit"><option value="">-- Pilih Motor --</option><option>Honda Beat Deluxe</option><option>Honda Scoopy</option><option>Honda Vario</option><option>Honda PCX 160</option><option>Yamaha Fazzio</option><option>Yamaha Filano</option><option>Yamaha NMAX</option><option>Kawasaki Ninja</option><option>Lainnya (tanyakan admin)</option></select></div></div>
+            <div class="form-full"><div class="form-group"><label>Tanggal Mulai *</label><input type="date" id="mo-mulai" style="width:100%"/></div></div>
+            <div class="form-full"><div class="form-group"><label>Jam Pengambilan</label><input type="time" id="mo-jam" style="width:100%"/></div></div>
+            <div class="form-full"><div class="form-group"><label>Durasi Sewa *</label><div class="durasi-grid"><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'6 Jam')">6 Jam</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'12 Jam')">12 Jam</button><button type="button" class="durasi-btn sel" onclick="selDurasi('mo',this,'1 Hari')">1 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'2 Hari')">2 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'3 Hari')">3 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'1 Minggu')">1 Minggu</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'1 Bulan')">1 Bulan</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'Lainnya')">Lainnya...</button></div><input type="hidden" id="mo-durasi" value="1 Hari"/></div></div>
+            <div class="form-full"><div class="form-group"><label>Alamat Penjemputan</label><input type="text" id="mo-alamat" placeholder="Alamat lengkap (kosongkan jika ambil di tempat)"/></div></div>
+          </div>
+        </div>
+        <div class="form-card">
+          <div class="form-card-header">Pembayaran</div>
+          <div class="pay-row"><div class="pay-btn sel">🏦 Transfer BCA — 0552280944 a.n. Faris Wahyu</div></div>
+        </div>
+        <button class="submit-btn" type="button" onclick="moNext()">Lanjut →</button>
+      </div>
+      <!-- STEP 2 -->
+      <div id="mo-s2" style="display:none">
+        <div class="dok-info"><span style="font-size:20px;flex-shrink:0">🆕</span><div><b>Pelanggan Baru</b>Untuk keamanan, upload dokumen diperlukan untuk penyewaan pertama. Data hanya untuk keperluan administrasi.</div></div>
+        <div class="form-card">
+          <div class="form-card-header">Upload Dokumen</div>
           <div class="upload-grid">
             <label class="upload-zone" id="zone-mo-ktp" onclick="triggerUpload('up-mo-ktp','zone-mo-ktp','lbl-mo-ktp')"><div class="upload-icon">🪪</div><div class="upload-text"><b>Foto KTP *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-mo-ktp"></div></div><input type="file" id="up-mo-ktp" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-ktp','lbl-mo-ktp')"/></label>
             <label class="upload-zone" id="zone-mo-sim" onclick="triggerUpload('up-mo-sim','zone-mo-sim','lbl-mo-sim')"><div class="upload-icon">🚘</div><div class="upload-text"><b>Foto SIM *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-mo-sim"></div></div><input type="file" id="up-mo-sim" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-sim','lbl-mo-sim')"/></label>
             <label class="upload-zone" id="zone-mo-kk" onclick="triggerUpload('up-mo-kk','zone-mo-kk','lbl-mo-kk')"><div class="upload-icon">📄</div><div class="upload-text"><b>Foto KK *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-mo-kk"></div></div><input type="file" id="up-mo-kk" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-kk','lbl-mo-kk')"/></label>
-            <label class="upload-zone" id="zone-mo-medsos" onclick="triggerUpload('up-mo-medsos','zone-mo-medsos','lbl-mo-medsos')"><div class="upload-icon">📸</div><div class="upload-text"><b>Screenshot Media Sosial *</b><small>Instagram / Facebook / TikTok aktif</small><div class="upload-status" id="lbl-mo-medsos"></div></div><input type="file" id="up-mo-medsos" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-medsos','lbl-mo-medsos')"/></label>
+            <label class="upload-zone" id="zone-mo-medsos" onclick="triggerUpload('up-mo-medsos','zone-mo-medsos','lbl-mo-medsos')"><div class="upload-icon">📸</div><div class="upload-text"><b>Screenshot Medsos *</b><small>Instagram / Facebook / TikTok</small><div class="upload-status" id="lbl-mo-medsos"></div></div><input type="file" id="up-mo-medsos" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-medsos','lbl-mo-medsos')"/></label>
           </div>
         </div>
-        <div class="form-full"><button class="submit-btn" onclick="submitSewaMotor()">📲 Booking via WhatsApp</button></div>
+        <div style="display:flex;gap:8px"><button class="btn-back" type="button" onclick="moBack()">← Kembali</button><button class="submit-btn" type="button" style="flex:1" onclick="submitSewaMotor()">📲 Kirim Booking</button></div>
+      </div>
+      <!-- STEP 3 -->
+      <div id="mo-s3" style="display:none">
+        <div class="booking-success"><div class="success-icon">✅</div><div class="success-title">Booking Terkirim!</div><div class="success-sub">Data tersimpan di sistem. Tap tombol di bawah untuk konfirmasi via WhatsApp agar Admin dapat memproses booking Anda.</div><button class="submit-btn" id="mo-wa-btn" type="button">💬 Konfirmasi via WhatsApp</button><button type="button" class="btn-ghost" onclick="closeSheet();moReset()">Tutup</button></div>
       </div>
     </div>
 
@@ -741,21 +821,100 @@ function req(id){return document.getElementById(id)?.value?.trim()||'';}
 function val(fields){for(const[id,label]of fields){if(!req(id)){toast('⚠️ '+label+' wajib diisi!','error');document.getElementById(id).focus();return false;}}return true;}
 function waOpen(msg){window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');}
 
-/* ── SUBMIT FUNCTIONS ── */
-function submitSewaMobil(){
-  if(!val([['sm-nama','Nama'],['sm-wa','No. WhatsApp'],['sm-unit','Unit kendaraan'],['sm-mulai','Tanggal mulai'],['sm-selesai','Tanggal selesai']]))return;
-  const docs=['up-sm-ktp','up-sm-sim','up-sm-kk','up-sm-medsos'],labels=['KTP','SIM','KK','Screenshot Medsos'];
-  for(let i=0;i<docs.length;i++){if(!document.getElementById(docs[i]).files[0]){toast('⚠️ '+labels[i]+' wajib diupload!','error');return;}}
-  const pay=document.querySelector('#form-mobil .pay-btn.sel')?.textContent||'BCA 0552280944';
-  waOpen(`Halo FRS Autocar 🚗\n\n*═══ BOOKING SEWA MOBIL ═══*\n\n👤 *Nama:* ${req('sm-nama')}\n📱 *No. WA:* ${req('sm-wa')}\n🚘 *Unit:* ${req('sm-unit')}\n👨‍✈️ *Sopir:* ${req('sm-sopir')}\n📅 *Mulai:* ${req('sm-mulai')}\n📅 *Selesai:* ${req('sm-selesai')}\n⏰ *Jam Ambil:* ${req('sm-jam')||'-'}\n📍 *Alamat:* ${req('sm-alamat')||'-'}\n💳 *Pembayaran:* ${pay}\n\n📎 Dokumen: KTP ✅ SIM ✅ KK ✅ Medsos ✅\n\nMohon konfirmasi. Terima kasih! 🙏`);
-  toast('✅ Mengalihkan ke WhatsApp...','success');
+/* ── SUPABASE ── */
+const SB_URL='https://gexhkzqdsrhetdlymlug.supabase.co';
+const SB_KEY='sb_publishable_mv_5MeKiLLeErdeGBzAOZw_feYpEWw1';
+const SB_H={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
+async function sbGet(t,q){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{headers:SB_H});return r.ok?r.json():[];}catch{return[];}}
+async function sbPost(t,d,upsert){try{const h={...SB_H,'Prefer':upsert?'resolution=merge-duplicates,return=representation':'return=representation'};const r=await fetch(SB_URL+'/rest/v1/'+t,{method:'POST',headers:h,body:JSON.stringify(d)});return r.ok?r.json():null;}catch{return null;}}
+async function sbPatch(t,q,d){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{method:'PATCH',headers:{...SB_H,'Prefer':'return=representation'},body:JSON.stringify(d)});return r.ok?r.json():null;}catch{return null;}}
+
+async function checkNIK(px){
+  const nik=(document.getElementById(px+'-nik')?.value||'').trim();
+  const banner=document.getElementById(px+'-nik-banner');
+  const docs=document.getElementById(px+'-docs');
+  if(!banner)return;
+  if(nik.length<16){banner.className='nik-banner';return;}
+  banner.className='nik-banner checking';
+  banner.innerHTML='⏳ Mengecek data...';
+  const data=await sbGet('users','?nik=eq.'+encodeURIComponent(nik)+'&select=*');
+  if(data&&data.length>0){
+    const u=data[0];
+    const n=document.getElementById(px+'-nama'),w=document.getElementById(px+'-wa'),al=document.getElementById(px+'-alamat');
+    if(n)n.value=u.nama;if(w)w.value=u.no_wa;if(al)al.value=u.alamat||'';
+    if(docs)docs.style.display='none';
+    banner.className='nik-banner found';
+    banner.innerHTML='✅ Halo kembali, <b>'+u.nama+'</b>! Dokumen sudah tersimpan — tidak perlu upload ulang.<a onclick="document.getElementById(\''+px+'-docs\').style.display=\'block\'">Ganti dok?</a>';
+    window[px+'_ret']=true;window[px+'_uid']=u.id;
+  }else{
+    if(docs)docs.style.display='block';
+    banner.className='nik-banner newuser';
+    banner.innerHTML='🆕 NIK baru — lengkapi data & upload dokumen untuk pertama kali.';
+    window[px+'_ret']=false;
+  }
 }
-function submitSewaMotor(){
-  if(!val([['mo-nama','Nama'],['mo-wa','No. WhatsApp'],['mo-unit','Unit motor'],['mo-mulai','Tanggal mulai']]))return;
-  const docs=['up-mo-ktp','up-mo-sim','up-mo-kk','up-mo-medsos'],labels=['KTP','SIM','KK','Screenshot Medsos'];
-  for(let i=0;i<docs.length;i++){if(!document.getElementById(docs[i]).files[0]){toast('⚠️ '+labels[i]+' wajib diupload!','error');return;}}
-  waOpen(`Halo FRS Autocar 🛵\n\n*═══ BOOKING SEWA MOTOR ═══*\n\n👤 *Nama:* ${req('mo-nama')}\n📱 *No. WA:* ${req('mo-wa')}\n🛵 *Unit:* ${req('mo-unit')}\n⏳ *Durasi:* ${req('mo-durasi')}\n📅 *Mulai:* ${req('mo-mulai')}\n⏰ *Jam:* ${req('mo-jam')||'-'}\n\n📎 Dokumen: KTP ✅ SIM ✅ KK ✅ Medsos ✅\n\nMohon konfirmasi. Terima kasih! 🙏`);
-  toast('✅ Mengalihkan ke WhatsApp...','success');
+
+/* ── TOGGLE / DURASI HELPERS ── */
+function selToggle(hiddenId,btn,val){
+  btn.closest('.toggle-group').querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById(hiddenId).value=val;
+}
+function selDurasi(prefix,btn,val){
+  btn.closest('.durasi-grid').querySelectorAll('.durasi-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById(prefix+'-durasi').value=val;
+}
+
+/* ── STEP MANAGEMENT ── */
+function smNext(){
+  if(!val([['sm-nik','NIK'],['sm-nama','Nama'],['sm-wa','No. WhatsApp'],['sm-unit','Unit kendaraan'],['sm-mulai','Tanggal mulai'],['sm-selesai','Tanggal selesai']]))return;
+  if(window.sm_ret){submitSewaMobil();}
+  else{document.getElementById('sm-s1').style.display='none';document.getElementById('sm-s2').style.display='block';document.getElementById('sm-sd1').className='step-dot done';document.getElementById('sm-sd2').className='step-dot active';}
+}
+function smBack(){document.getElementById('sm-s2').style.display='none';document.getElementById('sm-s1').style.display='block';document.getElementById('sm-sd2').className='step-dot';document.getElementById('sm-sd1').className='step-dot active';}
+function smReset(){['sm-s2','sm-s3'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('sm-s1').style.display='block';['sm-sd1','sm-sd2','sm-sd3'].forEach((id,i)=>document.getElementById(id).className='step-dot'+(i===0?' active':''));window.sm_ret=false;}
+
+function moNext(){
+  if(!val([['mo-nik','NIK'],['mo-nama','Nama'],['mo-wa','No. WhatsApp'],['mo-unit','Unit motor'],['mo-mulai','Tanggal mulai']]))return;
+  if(window.mo_ret){submitSewaMotor();}
+  else{document.getElementById('mo-s1').style.display='none';document.getElementById('mo-s2').style.display='block';document.getElementById('mo-sd1').className='step-dot done';document.getElementById('mo-sd2').className='step-dot active';}
+}
+function moBack(){document.getElementById('mo-s2').style.display='none';document.getElementById('mo-s1').style.display='block';document.getElementById('mo-sd2').className='step-dot';document.getElementById('mo-sd1').className='step-dot active';}
+function moReset(){['mo-s2','mo-s3'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('mo-s1').style.display='block';['mo-sd1','mo-sd2','mo-sd3'].forEach((id,i)=>document.getElementById(id).className='step-dot'+(i===0?' active':''));window.mo_ret=false;}
+
+function showSuccess(prefix,msg){
+  const s1=document.getElementById(prefix+'-s1'),s2=document.getElementById(prefix+'-s2'),s3=document.getElementById(prefix+'-s3');
+  if(s1)s1.style.display='none';if(s2)s2.style.display='none';s3.style.display='block';
+  document.getElementById(prefix+'-sd1').className='step-dot done';
+  document.getElementById(prefix+'-sd2').className='step-dot done';
+  document.getElementById(prefix+'-sd3').className='step-dot active';
+  document.getElementById(prefix+'-wa-btn').onclick=()=>waOpen(msg);
+}
+
+/* ── SUBMIT FUNCTIONS ── */
+async function submitSewaMobil(){
+  const nik=req('sm-nik');
+  if(!window.sm_ret){
+    const docs=['up-sm-ktp','up-sm-sim','up-sm-kk','up-sm-medsos'],labels=['KTP','SIM','KK','Screenshot Medsos'];
+    for(let i=0;i<docs.length;i++){if(!document.getElementById(docs[i]).files[0]){toast('⚠️ '+labels[i]+' wajib diupload!','error');return;}}
+  }
+  const pay=document.querySelector('#form-mobil .pay-btn.sel')?.textContent||'BCA 0552280944';
+  if(!window.sm_ret&&nik)await sbPost('users',{nik,nama:req('sm-nama'),no_wa:req('sm-wa'),alamat:req('sm-alamat')||''},true);
+  await sbPost('bookings',{jenis:'Sewa Mobil',nik,nama:req('sm-nama'),no_wa:req('sm-wa'),unit:req('sm-unit'),sopir:req('sm-sopir'),tanggal_mulai:req('sm-mulai'),tanggal_selesai:req('sm-selesai'),jam:req('sm-jam')||'',alamat:req('sm-alamat')||'',user_lama:!!window.sm_ret,status:'pending'});
+  const msg=`Halo FRS Autocar 🚗\n\n*═══ BOOKING SEWA MOBIL ═══*\n\n👤 *Nama:* ${req('sm-nama')}\n🪪 *NIK:* ${nik}\n📱 *No. WA:* ${req('sm-wa')}\n🚘 *Unit:* ${req('sm-unit')}\n👨‍✈️ *Sopir:* ${req('sm-sopir')}\n📅 *Mulai:* ${req('sm-mulai')}\n📅 *Selesai:* ${req('sm-selesai')}\n⏰ *Jam Ambil:* ${req('sm-jam')||'-'}\n📍 *Alamat:* ${req('sm-alamat')||'-'}\n💳 *Pembayaran:* ${pay}\n\n${window.sm_ret?'✅ User lama — dokumen sudah tersimpan':'📎 Dokumen: KTP ✅ SIM ✅ KK ✅ Medsos ✅'}\n\nMohon konfirmasi. Terima kasih! 🙏`;
+  showSuccess('sm',msg);
+}
+async function submitSewaMotor(){
+  const nik=req('mo-nik');
+  if(!window.mo_ret){
+    const docs=['up-mo-ktp','up-mo-sim','up-mo-kk','up-mo-medsos'],labels=['KTP','SIM','KK','Screenshot Medsos'];
+    for(let i=0;i<docs.length;i++){if(!document.getElementById(docs[i]).files[0]){toast('⚠️ '+labels[i]+' wajib diupload!','error');return;}}
+  }
+  if(!window.mo_ret&&nik)await sbPost('users',{nik,nama:req('mo-nama'),no_wa:req('mo-wa'),alamat:''},true);
+  await sbPost('bookings',{jenis:'Sewa Motor',nik,nama:req('mo-nama'),no_wa:req('mo-wa'),unit:req('mo-unit'),durasi:req('mo-durasi'),tanggal_mulai:req('mo-mulai'),jam:req('mo-jam')||'',alamat:document.getElementById('mo-alamat').value||'',user_lama:!!window.mo_ret,status:'pending'});
+  const msg=`Halo FRS Autocar 🛵\n\n*═══ BOOKING SEWA MOTOR ═══*\n\n👤 *Nama:* ${req('mo-nama')}\n🪪 *NIK:* ${nik}\n📱 *No. WA:* ${req('mo-wa')}\n🛵 *Unit:* ${req('mo-unit')}\n⏳ *Durasi:* ${req('mo-durasi')}\n📅 *Mulai:* ${req('mo-mulai')}\n⏰ *Jam:* ${req('mo-jam')||'-'}\n📍 *Alamat:* ${document.getElementById('mo-alamat').value||'Ambil di tempat'}\n\n${window.mo_ret?'✅ User lama — dokumen sudah tersimpan':'📎 Dokumen: KTP ✅ SIM ✅ KK ✅ Medsos ✅'}\n\nMohon konfirmasi. Terima kasih! 🙏`;
+  showSuccess('mo',msg);
 }
 function submitSewaIphone(){
   if(!val([['ip-nama','Nama'],['ip-wa','No. WhatsApp'],['ip-tipe','Tipe iPhone'],['ip-mulai','Tanggal mulai']]))return;
@@ -792,6 +951,8 @@ function submitHiace(){
 window.addEventListener('DOMContentLoaded',()=>{
   collapseGrid('grid-mobil');
   collapseGrid('grid-motor');
+  const today=new Date().toISOString().split('T')[0];
+  document.querySelectorAll('input[type="date"]').forEach(el=>el.setAttribute('min',today));
 });
 </script>
 </body>
