@@ -167,15 +167,16 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
 .upload-label-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:8px;}
 .upload-notice{background:rgba(220,31,38,0.06);border:1px solid rgba(220,31,38,0.18);border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:12px;color:rgba(180,20,20,0.9);line-height:1.5;}
 .upload-grid{display:grid;gap:8px;}
-.upload-zone{background:rgba(0,0,0,0.03);border:1.5px dashed rgba(0,0,0,0.15);border-radius:8px;padding:12px;cursor:pointer;transition:border-color 0.2s,background 0.2s;display:flex;align-items:center;gap:10px;}
+.upload-zone{background:rgba(0,0,0,0.03);border:1.5px dashed rgba(0,0,0,0.15);border-radius:8px;padding:0;cursor:pointer;transition:border-color 0.2s,background 0.2s;overflow:hidden;position:relative;}
 .upload-zone:hover{border-color:rgba(220,31,38,0.35);background:rgba(220,31,38,0.03);}
-.upload-zone.uploaded{border-color:rgba(22,163,74,0.35);background:rgba(22,163,74,0.04);}
+.upload-zone.uploaded{border-color:rgba(22,163,74,0.35);background:transparent;}
+.upload-default{display:flex;align-items:center;gap:10px;padding:12px;}
 .upload-icon{font-size:20px;flex-shrink:0;}
 .upload-text{flex:1;}
 .upload-text b{display:block;font-size:13px;color:rgba(0,0,0,0.7);}
 .upload-text small{font-size:11px;color:var(--muted);}
-.upload-status{font-size:11px;color:#16a34a;margin-top:2px;display:none;}
-.upload-zone.uploaded .upload-status{display:block;}
+.upload-preview-img{width:100%;height:120px;object-fit:cover;display:block;}
+.upload-preview-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.3);display:none;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;}
 .upload-input{display:none;}
 .pay-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
 .pay-btn{background:rgba(0,0,0,0.04);border:1.5px solid rgba(0,0,0,0.12);color:rgba(0,0,0,0.54);padding:8px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;}
@@ -500,10 +501,10 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
         <div class="form-card">
           <div class="form-card-header">Upload Dokumen</div>
           <div class="upload-grid">
-            <label class="upload-zone" id="zone-sm-ktp" onclick="triggerUpload('up-sm-ktp','zone-sm-ktp','lbl-sm-ktp')"><div class="upload-icon">🪪</div><div class="upload-text"><b>Foto KTP *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-sm-ktp"></div></div><input type="file" id="up-sm-ktp" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-ktp','lbl-sm-ktp')"/></label>
-            <label class="upload-zone" id="zone-sm-sim" onclick="triggerUpload('up-sm-sim','zone-sm-sim','lbl-sm-sim')"><div class="upload-icon">🚘</div><div class="upload-text"><b>Foto SIM *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-sm-sim"></div></div><input type="file" id="up-sm-sim" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-sim','lbl-sm-sim')"/></label>
-            <label class="upload-zone" id="zone-sm-kk" onclick="triggerUpload('up-sm-kk','zone-sm-kk','lbl-sm-kk')"><div class="upload-icon">📄</div><div class="upload-text"><b>Foto KK *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-sm-kk"></div></div><input type="file" id="up-sm-kk" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-kk','lbl-sm-kk')"/></label>
-            <label class="upload-zone" id="zone-sm-medsos" onclick="triggerUpload('up-sm-medsos','zone-sm-medsos','lbl-sm-medsos')"><div class="upload-icon">📸</div><div class="upload-text"><b>Screenshot Medsos *</b><small>Instagram / Facebook / TikTok</small><div class="upload-status" id="lbl-sm-medsos"></div></div><input type="file" id="up-sm-medsos" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-medsos','lbl-sm-medsos')"/></label>
+            <div class="upload-zone" id="zone-sm-ktp" onclick="triggerUpload('up-sm-ktp')"><img id="img-sm-ktp" class="upload-preview-img" src="" alt="" style="display:none"/><div class="upload-preview-overlay" id="overlay-sm-ktp">Ganti Foto</div><div class="upload-default" id="def-sm-ktp"><div class="upload-icon">🪪</div><div class="upload-text"><b>Foto KTP *</b><small>Ketuk untuk upload</small></div></div><input type="file" id="up-sm-ktp" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-ktp')"/></div>
+            <div class="upload-zone" id="zone-sm-sim" onclick="triggerUpload('up-sm-sim')"><img id="img-sm-sim" class="upload-preview-img" src="" alt="" style="display:none"/><div class="upload-preview-overlay" id="overlay-sm-sim">Ganti Foto</div><div class="upload-default" id="def-sm-sim"><div class="upload-icon">🚘</div><div class="upload-text"><b>Foto SIM *</b><small>Ketuk untuk upload</small></div></div><input type="file" id="up-sm-sim" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-sim')"/></div>
+            <div class="upload-zone" id="zone-sm-kk" onclick="triggerUpload('up-sm-kk')"><img id="img-sm-kk" class="upload-preview-img" src="" alt="" style="display:none"/><div class="upload-preview-overlay" id="overlay-sm-kk">Ganti Foto</div><div class="upload-default" id="def-sm-kk"><div class="upload-icon">📄</div><div class="upload-text"><b>Foto KK *</b><small>Ketuk untuk upload</small></div></div><input type="file" id="up-sm-kk" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-kk')"/></div>
+            <div class="upload-zone" id="zone-sm-medsos" onclick="triggerUpload('up-sm-medsos')"><img id="img-sm-medsos" class="upload-preview-img" src="" alt="" style="display:none"/><div class="upload-preview-overlay" id="overlay-sm-medsos">Ganti Foto</div><div class="upload-default" id="def-sm-medsos"><div class="upload-icon">📸</div><div class="upload-text"><b>Screenshot Medsos *</b><small>Instagram / Facebook / TikTok</small></div></div><input type="file" id="up-sm-medsos" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-sm-medsos')"/></div>
           </div>
         </div>
         <div style="display:flex;gap:8px"><button class="btn-back" type="button" onclick="smBack()">← Kembali</button><button class="submit-btn" type="button" style="flex:1" onclick="submitSewaMobil()">📲 Kirim Booking</button></div>
@@ -551,10 +552,10 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
         <div class="form-card">
           <div class="form-card-header">Upload Dokumen</div>
           <div class="upload-grid">
-            <label class="upload-zone" id="zone-mo-ktp" onclick="triggerUpload('up-mo-ktp','zone-mo-ktp','lbl-mo-ktp')"><div class="upload-icon">🪪</div><div class="upload-text"><b>Foto KTP *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-mo-ktp"></div></div><input type="file" id="up-mo-ktp" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-ktp','lbl-mo-ktp')"/></label>
-            <label class="upload-zone" id="zone-mo-sim" onclick="triggerUpload('up-mo-sim','zone-mo-sim','lbl-mo-sim')"><div class="upload-icon">🚘</div><div class="upload-text"><b>Foto SIM *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-mo-sim"></div></div><input type="file" id="up-mo-sim" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-sim','lbl-mo-sim')"/></label>
-            <label class="upload-zone" id="zone-mo-kk" onclick="triggerUpload('up-mo-kk','zone-mo-kk','lbl-mo-kk')"><div class="upload-icon">📄</div><div class="upload-text"><b>Foto KK *</b><small>Tap untuk upload</small><div class="upload-status" id="lbl-mo-kk"></div></div><input type="file" id="up-mo-kk" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-kk','lbl-mo-kk')"/></label>
-            <label class="upload-zone" id="zone-mo-medsos" onclick="triggerUpload('up-mo-medsos','zone-mo-medsos','lbl-mo-medsos')"><div class="upload-icon">📸</div><div class="upload-text"><b>Screenshot Medsos *</b><small>Instagram / Facebook / TikTok</small><div class="upload-status" id="lbl-mo-medsos"></div></div><input type="file" id="up-mo-medsos" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-medsos','lbl-mo-medsos')"/></label>
+            <div class="upload-zone" id="zone-mo-ktp" onclick="triggerUpload('up-mo-ktp')"><img id="img-mo-ktp" class="upload-preview-img" src="" alt="" style="display:none"/><div class="upload-preview-overlay" id="overlay-mo-ktp">Ganti Foto</div><div class="upload-default" id="def-mo-ktp"><div class="upload-icon">🪪</div><div class="upload-text"><b>Foto KTP *</b><small>Ketuk untuk upload</small></div></div><input type="file" id="up-mo-ktp" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-ktp')"/></div>
+            <div class="upload-zone" id="zone-mo-sim" onclick="triggerUpload('up-mo-sim')"><img id="img-mo-sim" class="upload-preview-img" src="" alt="" style="display:none"/><div class="upload-preview-overlay" id="overlay-mo-sim">Ganti Foto</div><div class="upload-default" id="def-mo-sim"><div class="upload-icon">🚘</div><div class="upload-text"><b>Foto SIM *</b><small>Ketuk untuk upload</small></div></div><input type="file" id="up-mo-sim" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-sim')"/></div>
+            <div class="upload-zone" id="zone-mo-kk" onclick="triggerUpload('up-mo-kk')"><img id="img-mo-kk" class="upload-preview-img" src="" alt="" style="display:none"/><div class="upload-preview-overlay" id="overlay-mo-kk">Ganti Foto</div><div class="upload-default" id="def-mo-kk"><div class="upload-icon">📄</div><div class="upload-text"><b>Foto KK *</b><small>Ketuk untuk upload</small></div></div><input type="file" id="up-mo-kk" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-kk')"/></div>
+            <div class="upload-zone" id="zone-mo-medsos" onclick="triggerUpload('up-mo-medsos')"><img id="img-mo-medsos" class="upload-preview-img" src="" alt="" style="display:none"/><div class="upload-preview-overlay" id="overlay-mo-medsos">Ganti Foto</div><div class="upload-default" id="def-mo-medsos"><div class="upload-icon">📸</div><div class="upload-text"><b>Screenshot Medsos *</b><small>Instagram / Facebook / TikTok</small></div></div><input type="file" id="up-mo-medsos" class="upload-input" accept="image/*" onchange="onUpload(this,'zone-mo-medsos')"/></div>
           </div>
         </div>
         <div style="display:flex;gap:8px"><button class="btn-back" type="button" onclick="moBack()">← Kembali</button><button class="submit-btn" type="button" style="flex:1" onclick="submitSewaMotor()">📲 Kirim Booking</button></div>
@@ -842,8 +843,19 @@ function scrollToLayanan(el){
 /* ── HELPERS ── */
 function toggleSK(head){head.closest('.sk-item').classList.toggle('open');}
 function selPay(el){const row=el.closest('.pay-row');row.querySelectorAll('.pay-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');}
-function triggerUpload(a){document.getElementById(a).click();}
-function onUpload(input,zoneId,lblId){if(input.files&&input.files[0]){document.getElementById(zoneId).classList.add('uploaded');const l=document.getElementById(lblId);l.textContent='✅ '+input.files[0].name;l.style.display='block';}}
+function triggerUpload(inputId){document.getElementById(inputId).click();}
+function onUpload(input,zoneId){
+  if(!input.files||!input.files[0])return;
+  const file=input.files[0];
+  const suffix=input.id.replace(/^up-/,'');
+  document.getElementById(zoneId).classList.add('uploaded');
+  const img=document.getElementById('img-'+suffix);
+  const overlay=document.getElementById('overlay-'+suffix);
+  const def=document.getElementById('def-'+suffix);
+  if(img){img.src=URL.createObjectURL(file);img.style.display='block';}
+  if(overlay)overlay.style.display='flex';
+  if(def)def.style.display='none';
+}
 function copyRek(id,btn){const num=document.getElementById(id).textContent.trim();navigator.clipboard.writeText(num).then(()=>{btn.textContent='✅ Tersalin!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='📋 Salin Nomor Rekening';btn.classList.remove('copied');},2500);});}
 function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3200);}
 function req(id){return document.getElementById(id)?.value?.trim()||'';}
