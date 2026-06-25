@@ -483,7 +483,7 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
             <div class="form-full"><div class="form-group"><label>Tanggal Mulai *</label><input type="date" id="sm-mulai" style="width:100%"/></div></div>
             <div class="form-full"><div class="form-group"><label>Jam Mulai (opsional)</label><input type="time" id="sm-jam" style="width:100%"/></div></div>
             <div class="form-full"><div class="form-group"><label>Durasi Sewa *</label><div class="durasi-grid"><button type="button" class="durasi-btn" onclick="selDurasi('sm',this,'6 Jam')">6 Jam</button><button type="button" class="durasi-btn" onclick="selDurasi('sm',this,'12 Jam')">12 Jam</button><button type="button" class="durasi-btn sel" onclick="selDurasi('sm',this,'24 Jam (1 Hari)')">24 Jam (1 Hari)</button><button type="button" class="durasi-btn" onclick="selDurasi('sm',this,'2 Hari')">2 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('sm',this,'3 Hari')">3 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('sm',this,'4 Hari')">4 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('sm',this,'5 Hari')">5 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('sm',this,'6 Hari')">6 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('sm',this,'1 Minggu')">1 Minggu</button><button type="button" class="durasi-btn" onclick="selDurasi('sm',this,'Lainnya')">Lainnya...</button></div><input type="hidden" id="sm-durasi" value="24 Jam (1 Hari)"/><input type="text" id="sm-durasi-custom" style="display:none;margin-top:8px" placeholder="Ketik durasi, cth: 8 Hari..."/></div></div>
-            <div class="form-full"><div class="form-group"><label>Metode Pengambilan *</label><div class="toggle-group"><button type="button" class="toggle-btn sel" onclick="selMetode('sm',this,'Antar ke Lokasi')"><span class="toggle-dot"></span>Antar ke Lokasi</button><button type="button" class="toggle-btn" onclick="selMetode('sm',this,'Ambil Sendiri')"><span class="toggle-dot"></span>Ambil Sendiri</button><button type="button" class="toggle-btn" onclick="selMetode('sm',this,'With Driver')"><span class="toggle-dot"></span>With Driver</button></div><input type="hidden" id="sm-metode" value="Antar ke Lokasi"/></div></div>
+            <div class="form-full"><div class="form-group"><label>Metode Pengambilan *</label><div class="toggle-group" id="sm-metode-group"><button type="button" class="toggle-btn sel" onclick="selMetode('sm',this,'Antar ke Lokasi')"><span class="toggle-dot"></span>Antar ke Lokasi</button><button type="button" class="toggle-btn" id="sm-ambil-btn" style="display:none" onclick="selMetode('sm',this,'Ambil Sendiri')"><span class="toggle-dot"></span>Ambil Sendiri</button><button type="button" class="toggle-btn" onclick="selMetode('sm',this,'With Driver')"><span class="toggle-dot"></span>With Driver</button></div><input type="hidden" id="sm-metode" value="Antar ke Lokasi"/><p id="sm-ambil-hint" style="font-size:11px;color:#9ca3af;margin-top:4px">ℹ Opsi "Ambil Sendiri" tersedia setelah NIK terverifikasi (rental kedua dst.)</p></div></div>
             <div class="form-full" id="sm-tujuan-wrap" style="display:none"><div class="form-group"><label>Tujuan / Rute *</label><textarea id="sm-tujuan" rows="3" style="resize:none" placeholder="Tulis titik jemput dan tujuan secara jelas..."></textarea><p style="font-size:11px;color:var(--red);margin-top:4px;font-weight:500">⚠ Harga With Driver ditentukan berdasarkan rute</p></div></div>
             <div class="form-full"><div class="form-group"><label>Catatan (opsional)</label><textarea id="sm-catatan" rows="3" style="resize:none" placeholder="Permintaan khusus, alamat antar, dll."></textarea></div></div>
           </div>
@@ -492,7 +492,7 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
           <div class="form-card-header">Pembayaran</div>
           <div class="pay-row"><div class="pay-btn sel" onclick="selPay(this)">🏦 Transfer BCA — 0552280944 a.n. Faris Wahyu</div></div>
         </div>
-        <button class="submit-btn" type="button" onclick="smNext()">Lanjut →</button>
+        <button class="submit-btn" type="button" id="sm-next-btn" onclick="smNext()">Lanjut →</button>
       </div>
       <!-- STEP 2 -->
       <div id="sm-s2" style="display:none">
@@ -534,7 +534,7 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
             <div class="form-full"><div class="form-group"><label>Tanggal Mulai *</label><input type="date" id="mo-mulai" style="width:100%"/></div></div>
             <div class="form-full"><div class="form-group"><label>Jam Mulai (opsional)</label><input type="time" id="mo-jam" style="width:100%"/></div></div>
             <div class="form-full"><div class="form-group"><label>Durasi Sewa *</label><div class="durasi-grid"><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'6 Jam')">6 Jam</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'12 Jam')">12 Jam</button><button type="button" class="durasi-btn sel" onclick="selDurasi('mo',this,'24 Jam (1 Hari)')">24 Jam (1 Hari)</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'2 Hari')">2 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'3 Hari')">3 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'4 Hari')">4 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'5 Hari')">5 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'6 Hari')">6 Hari</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'1 Minggu')">1 Minggu</button><button type="button" class="durasi-btn" onclick="selDurasi('mo',this,'Lainnya')">Lainnya...</button></div><input type="hidden" id="mo-durasi" value="24 Jam (1 Hari)"/><input type="text" id="mo-durasi-custom" style="display:none;margin-top:8px" placeholder="Ketik durasi, cth: 8 Hari..."/></div></div>
-            <div class="form-full"><div class="form-group"><label>Metode Pengambilan *</label><div class="toggle-group"><button type="button" class="toggle-btn sel" onclick="selMetode('mo',this,'Antar ke Lokasi')"><span class="toggle-dot"></span>Antar ke Lokasi</button><button type="button" class="toggle-btn" onclick="selMetode('mo',this,'Ambil Sendiri')"><span class="toggle-dot"></span>Ambil Sendiri</button><button type="button" class="toggle-btn" onclick="selMetode('mo',this,'With Driver')"><span class="toggle-dot"></span>With Driver</button></div><input type="hidden" id="mo-metode" value="Antar ke Lokasi"/></div></div>
+            <div class="form-full"><div class="form-group"><label>Metode Pengambilan *</label><div class="toggle-group" id="mo-metode-group"><button type="button" class="toggle-btn sel" onclick="selMetode('mo',this,'Antar ke Lokasi')"><span class="toggle-dot"></span>Antar ke Lokasi</button><button type="button" class="toggle-btn" id="mo-ambil-btn" style="display:none" onclick="selMetode('mo',this,'Ambil Sendiri')"><span class="toggle-dot"></span>Ambil Sendiri</button><button type="button" class="toggle-btn" onclick="selMetode('mo',this,'With Driver')"><span class="toggle-dot"></span>With Driver</button></div><input type="hidden" id="mo-metode" value="Antar ke Lokasi"/><p id="mo-ambil-hint" style="font-size:11px;color:#9ca3af;margin-top:4px">ℹ Opsi "Ambil Sendiri" tersedia setelah NIK terverifikasi (rental kedua dst.)</p></div></div>
             <div class="form-full" id="mo-tujuan-wrap" style="display:none"><div class="form-group"><label>Tujuan / Rute *</label><textarea id="mo-tujuan" rows="3" style="resize:none" placeholder="Tulis titik jemput dan tujuan secara jelas..."></textarea><p style="font-size:11px;color:var(--red);margin-top:4px;font-weight:500">⚠ Harga With Driver ditentukan berdasarkan rute</p></div></div>
             <div class="form-full"><div class="form-group"><label>Catatan (opsional)</label><textarea id="mo-catatan" rows="3" style="resize:none" placeholder="Permintaan khusus, dst."></textarea></div></div>
           </div>
@@ -543,7 +543,7 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
           <div class="form-card-header">Pembayaran</div>
           <div class="pay-row"><div class="pay-btn sel">🏦 Transfer BCA — 0552280944 a.n. Faris Wahyu</div></div>
         </div>
-        <button class="submit-btn" type="button" onclick="moNext()">Lanjut →</button>
+        <button class="submit-btn" type="button" id="mo-next-btn" onclick="moNext()">Lanjut →</button>
       </div>
       <!-- STEP 2 -->
       <div id="mo-s2" style="display:none">
@@ -867,6 +867,9 @@ async function checkNIK(px){
   banner.className='nik-banner checking';
   banner.innerHTML='⏳ Mengecek data...';
   const data=await sbGet('users','?nik=eq.'+encodeURIComponent(nik)+'&select=*');
+  const ambilBtn=document.getElementById(px+'-ambil-btn');
+  const ambilHint=document.getElementById(px+'-ambil-hint');
+  const nextBtn=document.getElementById(px+'-next-btn');
   if(data&&data.length>0){
     const u=data[0];
     const n=document.getElementById(px+'-nama'),w=document.getElementById(px+'-wa');
@@ -875,11 +878,25 @@ async function checkNIK(px){
     banner.className='nik-banner found';
     banner.innerHTML='✅ Halo kembali, <b>'+u.nama+'</b>! Dokumen sudah tersimpan — tidak perlu upload ulang.<a onclick="document.getElementById(\''+px+'-docs\').style.display=\'block\'">Ganti dok?</a>';
     window[px+'_ret']=true;window[px+'_uid']=u.id;
+    if(ambilBtn)ambilBtn.style.display='flex';
+    if(ambilHint)ambilHint.style.display='none';
+    if(nextBtn)nextBtn.textContent='Kirim Booking →';
   }else{
     if(docs)docs.style.display='block';
     banner.className='nik-banner newuser';
     banner.innerHTML='🆕 NIK baru — lengkapi data & upload dokumen untuk pertama kali.';
     window[px+'_ret']=false;
+    if(ambilBtn)ambilBtn.style.display='none';
+    if(ambilHint)ambilHint.style.display='block';
+    if(nextBtn)nextBtn.textContent='Lanjut →';
+    const metodeEl=document.getElementById(px+'-metode');
+    if(metodeEl&&metodeEl.value==='Ambil Sendiri'){
+      const group=document.getElementById(px+'-metode-group');
+      if(group){group.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('sel'));group.querySelector('.toggle-btn').classList.add('sel');}
+      metodeEl.value='Antar ke Lokasi';
+      const tujuanWrap=document.getElementById(px+'-tujuan-wrap');
+      if(tujuanWrap)tujuanWrap.style.display='none';
+    }
   }
 }
 
@@ -914,7 +931,7 @@ function smNext(){
   else{document.getElementById('sm-s1').style.display='none';document.getElementById('sm-s2').style.display='block';document.getElementById('sm-sd1').className='step-dot done';document.getElementById('sm-sd2').className='step-dot active';}
 }
 function smBack(){document.getElementById('sm-s2').style.display='none';document.getElementById('sm-s1').style.display='block';document.getElementById('sm-sd2').className='step-dot';document.getElementById('sm-sd1').className='step-dot active';}
-function smReset(){['sm-s2','sm-s3'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('sm-s1').style.display='block';['sm-sd1','sm-sd2','sm-sd3'].forEach((id,i)=>document.getElementById(id).className='step-dot'+(i===0?' active':''));window.sm_ret=false;}
+function smReset(){['sm-s2','sm-s3'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('sm-s1').style.display='block';['sm-sd1','sm-sd2','sm-sd3'].forEach((id,i)=>document.getElementById(id).className='step-dot'+(i===0?' active':''));window.sm_ret=false;const ab=document.getElementById('sm-ambil-btn'),ah=document.getElementById('sm-ambil-hint'),nb=document.getElementById('sm-next-btn');if(ab)ab.style.display='none';if(ah)ah.style.display='block';if(nb)nb.textContent='Lanjut →';}
 
 function moNext(){
   if(!val([['mo-nik','NIK'],['mo-nama','Nama'],['mo-wa','No. WhatsApp'],['mo-unit','Unit motor'],['mo-mulai','Tanggal mulai']]))return;
@@ -925,7 +942,7 @@ function moNext(){
   else{document.getElementById('mo-s1').style.display='none';document.getElementById('mo-s2').style.display='block';document.getElementById('mo-sd1').className='step-dot done';document.getElementById('mo-sd2').className='step-dot active';}
 }
 function moBack(){document.getElementById('mo-s2').style.display='none';document.getElementById('mo-s1').style.display='block';document.getElementById('mo-sd2').className='step-dot';document.getElementById('mo-sd1').className='step-dot active';}
-function moReset(){['mo-s2','mo-s3'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('mo-s1').style.display='block';['mo-sd1','mo-sd2','mo-sd3'].forEach((id,i)=>document.getElementById(id).className='step-dot'+(i===0?' active':''));window.mo_ret=false;}
+function moReset(){['mo-s2','mo-s3'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('mo-s1').style.display='block';['mo-sd1','mo-sd2','mo-sd3'].forEach((id,i)=>document.getElementById(id).className='step-dot'+(i===0?' active':''));window.mo_ret=false;const ab=document.getElementById('mo-ambil-btn'),ah=document.getElementById('mo-ambil-hint'),nb=document.getElementById('mo-next-btn');if(ab)ab.style.display='none';if(ah)ah.style.display='block';if(nb)nb.textContent='Lanjut →';}
 
 function showSuccess(prefix,msg){
   const s1=document.getElementById(prefix+'-s1'),s2=document.getElementById(prefix+'-s2'),s3=document.getElementById(prefix+'-s3');
