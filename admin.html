@@ -66,14 +66,12 @@ body{background:#F4F4F4;font-family:'Inter',sans-serif;min-height:100vh;}
 .booking-card{background:#fff;border-radius:12px;padding:16px;margin-bottom:10px;border-left:3px solid #ddd;}
 .booking-card.pending{border-left-color:#f59e0b;}
 .booking-card.approved{border-left-color:#16a34a;}
-.booking-card.rejected{border-left-color:#dc2626;}
 .booking-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px;}
 .booking-name{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#111;text-transform:uppercase;}
 .booking-meta{font-size:11px;color:#888;margin-top:1px;}
 .status-badge{padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap;flex-shrink:0;}
 .status-badge.pending{background:#fef3c7;color:#92400e;}
 .status-badge.approved{background:#dcfce7;color:#15803d;}
-.status-badge.rejected{background:#fee2e2;color:#b91c1c;}
 .booking-details{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-bottom:12px;}
 .bd-item{font-size:12px;color:#555;}
 .bd-item b{color:#111;}
@@ -251,6 +249,7 @@ let currentTab='all';
 let rejectTarget=null;
 
 async function sbGet(t,q){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{headers:SB_H});return r.ok?r.json():[];}catch{return[];}}
+async function sbPost(t,d,upsert){try{const h={...SB_H,'Prefer':upsert?'resolution=merge-duplicates,return=representation':'return=representation'};const r=await fetch(SB_URL+'/rest/v1/'+t,{method:'POST',headers:h,body:JSON.stringify(d)});return r.ok?r.json():null;}catch{return null;}}
 async function sbPatch(t,q,d){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{method:'PATCH',headers:{...SB_H,'Prefer':'return=representation'},body:JSON.stringify(d)});return r.ok?r.json():null;}catch{return null;}}
 async function sbDelete(t,q){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{method:'DELETE',headers:SB_H});return r.ok;}catch{return false;}}
 

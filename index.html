@@ -932,7 +932,6 @@ function openCekStatus(prefix){
   },320);
 }
 async function sbPost(t,d,upsert){try{const h={...SB_H,'Prefer':upsert?'resolution=merge-duplicates,return=representation':'return=representation'};const r=await fetch(SB_URL+'/rest/v1/'+t,{method:'POST',headers:h,body:JSON.stringify(d)});return r.ok?r.json():null;}catch{return null;}}
-async function sbPatch(t,q,d){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{method:'PATCH',headers:{...SB_H,'Prefer':'return=representation'},body:JSON.stringify(d)});return r.ok?r.json():null;}catch{return null;}}
 
 async function checkNIK(px){
   const nik=(document.getElementById(px+'-nik')?.value||'').trim();
@@ -952,7 +951,7 @@ async function checkNIK(px){
     if(n)n.value=u.nama;if(w)w.value=u.no_wa;
     if(docs)docs.style.display='none';
     banner.className='nik-banner found';
-    banner.innerHTML='✅ Halo kembali, <b>'+u.nama+'</b>! Dokumen sudah tersimpan — tidak perlu upload ulang.<a onclick="document.getElementById(\''+px+'-docs\').style.display=\'block\'">Ganti dok?</a>';
+    banner.innerHTML='✅ Halo kembali, <b>'+u.nama+'</b>! Dokumen sudah tersimpan — tidak perlu upload ulang.<a onclick="showGantDoc(\''+px+'\')">Ganti dok?</a>';
     window[px+'_ret']=true;window[px+'_uid']=u.id;
     if(ambilBtn)ambilBtn.style.display='flex';
     if(ambilHint)ambilHint.style.display='none';
@@ -977,10 +976,11 @@ async function checkNIK(px){
 }
 
 /* ── TOGGLE / DURASI HELPERS ── */
-function selToggle(hiddenId,btn,val){
-  btn.closest('.toggle-group').querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('sel'));
-  btn.classList.add('sel');
-  document.getElementById(hiddenId).value=val;
+function showGantDoc(prefix){
+  document.getElementById(prefix+'-s1').style.display='none';
+  document.getElementById(prefix+'-s2').style.display='block';
+  document.getElementById(prefix+'-sd1').className='step-dot done';
+  document.getElementById(prefix+'-sd2').className='step-dot active';
 }
 function selDurasi(prefix,btn,val){
   btn.closest('.durasi-grid').querySelectorAll('.durasi-btn').forEach(b=>b.classList.remove('sel'));
