@@ -511,7 +511,7 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
       </div>
       <!-- STEP 3 -->
       <div id="sm-s3" style="display:none">
-        <div class="booking-success"><div class="success-icon">✅</div><div class="success-title">Booking Terkirim!</div><div class="success-sub">Data tersimpan di sistem. Tap tombol di bawah untuk konfirmasi via WhatsApp agar Admin dapat memproses booking Anda.</div><button class="submit-btn" id="sm-wa-btn" type="button">💬 Konfirmasi via WhatsApp</button><button type="button" class="btn-ghost" onclick="closeSheet();smReset()">Tutup</button></div>
+        <div class="booking-success"><div class="success-icon">✅</div><div class="success-title">Booking Terkirim!</div><div class="success-sub">Data tersimpan di sistem. Tap tombol di bawah untuk konfirmasi via WhatsApp agar Admin dapat memproses booking Anda.</div><button class="submit-btn" id="sm-wa-btn" type="button">💬 Konfirmasi via WhatsApp</button><button type="button" class="btn-ghost" onclick="openCekStatus('sm')">🔍 Cek Status Pesanan</button><button type="button" class="btn-ghost" onclick="closeSheet();smReset()">Tutup</button></div>
       </div>
     </div>
 
@@ -562,7 +562,7 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
       </div>
       <!-- STEP 3 -->
       <div id="mo-s3" style="display:none">
-        <div class="booking-success"><div class="success-icon">✅</div><div class="success-title">Booking Terkirim!</div><div class="success-sub">Data tersimpan di sistem. Tap tombol di bawah untuk konfirmasi via WhatsApp agar Admin dapat memproses booking Anda.</div><button class="submit-btn" id="mo-wa-btn" type="button">💬 Konfirmasi via WhatsApp</button><button type="button" class="btn-ghost" onclick="closeSheet();moReset()">Tutup</button></div>
+        <div class="booking-success"><div class="success-icon">✅</div><div class="success-title">Booking Terkirim!</div><div class="success-sub">Data tersimpan di sistem. Tap tombol di bawah untuk konfirmasi via WhatsApp agar Admin dapat memproses booking Anda.</div><button class="submit-btn" id="mo-wa-btn" type="button">💬 Konfirmasi via WhatsApp</button><button type="button" class="btn-ghost" onclick="openCekStatus('mo')">🔍 Cek Status Pesanan</button><button type="button" class="btn-ghost" onclick="closeSheet();moReset()">Tutup</button></div>
       </div>
     </div>
 
@@ -720,6 +720,25 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
   </div>
 </div>
 
+<!-- ══ STATUS PESANAN SHEET ══ -->
+<div class="sheet" id="status-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <span class="sheet-title">Cek Status Pesanan</span>
+    <button class="sheet-close" onclick="closeSheet()">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div class="form-card" style="margin-bottom:0">
+      <div class="form-group" style="margin-bottom:10px">
+        <label style="font-weight:700">Masukkan NIK (No. KTP) *</label>
+        <input type="text" id="cek-nik" placeholder="16 digit NIK" maxlength="16" inputmode="numeric" style="width:100%;margin-top:4px" oninput="this.value=this.value.replace(/\D/g,'')"/>
+      </div>
+      <button class="submit-btn" type="button" onclick="cekStatus()" style="margin:0">🔍 Cek Status Pesanan</button>
+    </div>
+    <div id="cek-result" style="margin-top:12px"></div>
+  </div>
+</div>
+
 <!-- ══ KONTAK SHEET ══ -->
 <div class="sheet" id="kontak-sheet">
   <div class="sheet-handle"></div>
@@ -748,8 +767,8 @@ body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;li
     <span class="bnav-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="var(--red)"><path d="M4 10h3v7H4zm6.5 0h3v7h-3zM2 19h20v3H2zm15-9h3v7h-3zM12 1L2 6v2h20V6z"/></svg></span>
     <span class="bnav-lbl" style="color:var(--red)">Rekening</span>
   </button>
-  <button class="bnav-item" onclick="openSheet('kontak-sheet',this)">
-    <span class="bnav-ic">📞</span><span class="bnav-lbl">Kontak</span>
+  <button class="bnav-item" onclick="openSheet('status-sheet',this)">
+    <span class="bnav-ic">🔍</span><span class="bnav-lbl">Status</span>
   </button>
   <a class="bnav-item" href="https://wa.me/6281320059540" target="_blank">
     <span class="bnav-ic">💬</span><span class="bnav-lbl">Chat</span>
@@ -867,6 +886,51 @@ const SB_URL='https://gexhkzqdsrhetdlymlug.supabase.co';
 const SB_KEY='sb_publishable_mv_5MeKiLLeErdeGBzAOZw_feYpEWw1';
 const SB_H={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
 async function sbGet(t,q){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{headers:SB_H});return r.ok?r.json():[];}catch{return[];}}
+function fmtD(d){if(!d)return'-';const p=d.split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:d;}
+async function cekStatus(){
+  const nik=(document.getElementById('cek-nik')?.value||'').trim();
+  const res=document.getElementById('cek-result');
+  if(nik.length<16){toast('⚠️ Masukkan NIK 16 digit!','error');return;}
+  res.innerHTML='<div style="text-align:center;padding:24px;color:#888">⏳ Mencari pesanan...</div>';
+  const data=await sbGet('bookings','?nik=eq.'+encodeURIComponent(nik)+'&order=created_at.desc&select=*');
+  if(!data||!data.length){
+    res.innerHTML='<div style="text-align:center;padding:32px 16px"><div style="font-size:40px;margin-bottom:10px">📭</div><div style="font-weight:700;font-size:16px;color:#111;margin-bottom:6px">Tidak Ada Pesanan</div><div style="font-size:13px;color:#888">Tidak ditemukan pesanan dengan NIK tersebut.</div></div>';
+    return;
+  }
+  res.innerHTML=data.map(b=>{
+    const isApproved=b.status==='approved';
+    const isPending=b.status==='pending';
+    const badgeColor=isApproved?'#16a34a':isPending?'#d97706':'#6b7280';
+    const badgeBg=isApproved?'#f0fdf4':isPending?'#fffbeb':'#f9fafb';
+    const badgeBorder=isApproved?'#bbf7d0':isPending?'#fde68a':'#e5e7eb';
+    const badgeText=isApproved?'✅ Disetujui':isPending?'⏳ Menunggu':'—';
+    return `<div class="form-card" style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+        <div><div style="font-size:15px;font-weight:800;color:#111">${b.unit||'-'}</div><div style="font-size:12px;color:#888;margin-top:2px">${b.jenis||'-'}</div></div>
+        <span style="font-size:11px;font-weight:700;color:${badgeColor};background:${badgeBg};padding:4px 10px;border-radius:20px;border:1px solid ${badgeBorder};white-space:nowrap">${badgeText}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:13px;color:#333">
+        <div>⏳ <b>${b.durasi||'-'}</b></div>
+        <div>🚦 <b>${b.sopir||'-'}</b></div>
+        <div>📅 <b>${fmtD(b.tanggal_mulai)}</b></div>
+        ${b.jam?`<div>⏰ <b>${b.jam.substring(0,5)}</b></div>`:'<div></div>'}
+        ${b.alamat?`<div style="grid-column:1/-1">📍 <small>${b.alamat}</small></div>`:''}
+      </div>
+      ${isPending?`<div style="margin-top:10px;font-size:12px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 10px">⏳ Pesanan sedang diproses. Admin akan menghubungi Anda segera.</div>`:''}
+      ${isApproved?`<div style="margin-top:10px;font-size:12px;color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:8px 10px">✅ Booking disetujui! Silakan siapkan DP dan konfirmasi pembayaran ke Admin.</div>`:''}
+    </div>`;
+  }).join('');
+}
+function openCekStatus(prefix){
+  const nik=document.getElementById(prefix+'-nik')?.value||'';
+  closeSheet();
+  if(prefix==='sm')smReset();else moReset();
+  setTimeout(()=>{
+    openSheet('status-sheet');
+    const inp=document.getElementById('cek-nik');
+    if(inp&&nik){inp.value=nik;cekStatus();}
+  },320);
+}
 async function sbPost(t,d,upsert){try{const h={...SB_H,'Prefer':upsert?'resolution=merge-duplicates,return=representation':'return=representation'};const r=await fetch(SB_URL+'/rest/v1/'+t,{method:'POST',headers:h,body:JSON.stringify(d)});return r.ok?r.json():null;}catch{return null;}}
 async function sbPatch(t,q,d){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{method:'PATCH',headers:{...SB_H,'Prefer':'return=representation'},body:JSON.stringify(d)});return r.ok?r.json():null;}catch{return null;}}
 
