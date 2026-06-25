@@ -154,7 +154,6 @@ body{background:#F4F4F4;font-family:'Inter',sans-serif;min-height:100vh;}
       <button class="tab-btn active" onclick="setTab('all',this)">Semua <span class="count" id="cnt-all">0</span></button>
       <button class="tab-btn" onclick="setTab('pending',this)">Menunggu <span class="count" id="cnt-pending">0</span></button>
       <button class="tab-btn" onclick="setTab('approved',this)">Disetujui <span class="count" id="cnt-approved">0</span></button>
-      <button class="tab-btn" onclick="setTab('rejected',this)">Ditolak <span class="count" id="cnt-rejected">0</span></button>
       <button class="tab-btn" onclick="setTab('users',this)">Data User <span class="count" id="cnt-users">0</span></button>
     </div>
 
@@ -253,6 +252,7 @@ let rejectTarget=null;
 
 async function sbGet(t,q){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{headers:SB_H});return r.ok?r.json():[];}catch{return[];}}
 async function sbPatch(t,q,d){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{method:'PATCH',headers:{...SB_H,'Prefer':'return=representation'},body:JSON.stringify(d)});return r.ok?r.json():null;}catch{return null;}}
+async function sbDelete(t,q){try{const r=await fetch(SB_URL+'/rest/v1/'+t+q,{method:'DELETE',headers:SB_H});return r.ok;}catch{return false;}}
 
 function doLogout(){
   sessionStorage.removeItem('frs_admin');
@@ -280,7 +280,6 @@ function updateStats(){
   document.getElementById('cnt-all').textContent=allBookings.length;
   document.getElementById('cnt-pending').textContent=pending;
   document.getElementById('cnt-approved').textContent=approved;
-  document.getElementById('cnt-rejected').textContent=allBookings.filter(b=>b.status==='rejected').length;
   document.getElementById('cnt-users').textContent=allUsers.length;
 }
 
@@ -335,7 +334,7 @@ function renderBookings(list){
       ${b.catatan_admin?`<div class="catatan-admin">📝 ${b.catatan_admin}</div>`:''}
       <div class="booking-actions">
         ${b.status==='pending'?`
-          <button class="btn-approve" onclick="approveBooking('${b.id}','${b.nama}','${b.no_wa}','${b.jenis}','${b.unit||''}','${b.tanggal_mulai||''}')">✅ Setujui</button>
+          <button class="btn-approve" onclick="approveBooking('${b.id}','${b.nama}','${b.no_wa}','${b.jenis}','${b.unit||''}','${b.tanggal_mulai||''}','${b.durasi||''}','${b.sopir||''}')">✅ Setujui</button>
           <button class="btn-reject" onclick="openRejectModal('${b.id}','${b.nama}','${b.no_wa}')">✕ Tolak</button>
         `:''}
         <button class="btn-wa" onclick="waContact('${b.no_wa}')">💬 WA</button>
@@ -362,13 +361,13 @@ function renderUsers(){
   `).join('');
 }
 
-async function approveBooking(id,nama,wa,jenis,unit,tgl){
+async function approveBooking(id,nama,wa,jenis,unit,tgl,durasi,sopir){
   await sbPatch('bookings','?id=eq.'+id,{status:'approved'});
   const idx=allBookings.findIndex(b=>b.id===id);
   if(idx>=0)allBookings[idx].status='approved';
   updateStats();
   renderTab(currentTab);
-  const msg=`Halo ${nama}! 👋\n\n✅ *Booking Anda DISETUJUI!*\n\n🚘 ${jenis}: ${unit||'-'}\n📅 Tanggal: ${fmtDate(tgl)}\n\nSilakan transfer dp sesuai kesepakatan. Terima kasih sudah memilih *FRS Autocar*! 🙏`;
+  const msg=`Halo ${nama}! 👋\n\n✅ *Booking Anda DISETUJUI!*\n\n🚘 ${jenis}: ${unit||'-'}\n⏳ Durasi: ${durasi||'-'}\n🚦 Metode: ${sopir||'-'}\n📅 Tanggal: ${fmtDate(tgl)}\n\nSilakan transfer DP sesuai kesepakatan. Terima kasih sudah memilih *FRS Autocar*! 🙏`;
   window.open('https://wa.me/62'+wa.replace(/^0/,'').replace(/[^0-9]/g,'')+'?text='+encodeURIComponent(msg),'_blank');
 }
 
@@ -392,9 +391,9 @@ async function confirmReject(){
   const sel=document.getElementById('reject-reason-select').value;
   if(!sel){alert('Pilih alasan penolakan dulu!');return;}
   const reason=sel==='custom'?(document.getElementById('reject-reason-custom').value.trim()||'Unit tidak tersedia'):sel;
-  await sbPatch('bookings','?id=eq.'+rejectTarget.id,{status:'rejected',catatan_admin:reason});
+  await sbDelete('bookings','?id=eq.'+rejectTarget.id);
   const idx=allBookings.findIndex(b=>b.id===rejectTarget.id);
-  if(idx>=0){allBookings[idx].status='rejected';allBookings[idx].catatan_admin=reason;}
+  if(idx>=0)allBookings.splice(idx,1);
   closeRejectModal();
   updateStats();
   renderTab(currentTab);
